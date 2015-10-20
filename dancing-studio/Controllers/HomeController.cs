@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dancing_studio.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,12 @@ namespace dancing_studio.Controllers
 {
     public class HomeController : Controller
     {
+        StudioContext db = new StudioContext();
+
         public ActionResult Index()
         {
+            db.Teachers.Add(new Teacher("Петрова Инна Сергеевна"));
+            db.SaveChanges();
             return View();
         }
 
