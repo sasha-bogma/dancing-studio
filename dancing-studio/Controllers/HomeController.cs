@@ -13,8 +13,6 @@ namespace dancing_studio.Controllers
 
         public ActionResult Index()
         {
-            db.Teachers.Add(new Teacher("Петрова Инна Сергеевна"));
-            db.SaveChanges();
             return View();
         }
 

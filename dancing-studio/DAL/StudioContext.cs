@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
     using System.Linq;
@@ -57,11 +58,17 @@
 
     public class Teacher
     {
-        public Teacher(string name) : base() { Name = name; }
-
         public int Id { get; set; }
+
+        [Display(Name = "ФИО")]
         public string Name { get; set; }
+
+        [Display (Name = "Номер телефона")]
         public string PhoneNumber { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Дата рождения")]
         public DateTime? Birthday { set; get; }
         //
         public virtual ICollection<Group> Groups { set; get; }
