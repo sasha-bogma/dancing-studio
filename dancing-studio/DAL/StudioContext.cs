@@ -27,6 +27,9 @@
         public DbSet<Parent> Parents { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Salary> Salaries { get; set; }
+        public DbSet<Present> Presences { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -63,6 +66,7 @@
         //
         public virtual ICollection<Group> Groups { set; get; }
         public virtual ICollection<Lesson> Lessons { set; get; }
+        public virtual ICollection<Salary> Salarys { set; get; }
     }
 
     public class Student
@@ -76,6 +80,8 @@
         //
         public virtual ICollection<Parent> Parents { set; get; }
         public virtual ICollection<Group> Groups { set; get; }
+        public virtual ICollection<Payment> Payments { set; get; }
+        public virtual ICollection<Present> Presences { set; get; }
 
     }
 
@@ -109,8 +115,43 @@
         public int GroupId { set; get; }
         public int TeacherId { set; get; }
         public DateTime? DateTime { set; get; }
+        public int Price { set; get; }
         //
         public Group Group { set; get; }
         public Teacher Teacher { set; get; }
+        public virtual ICollection<Present> Presents { set; get; }
+    }
+
+    public class Salary
+    {
+        public int Id { set; get; }
+        public int TeacherId { set; get; }
+        public double Amount { set; get; }
+        public DateTime? Date { set; get; }
+        //
+        public Teacher Teacher { set; get; }
+    }
+
+    public class Payment
+    {
+        public int Id { set; get; }
+        public int StudentId { set; get; }
+        public double Amount { set; get; }
+        public DateTime? Date { set; get; }
+        //
+        public Student Student { set; get; }
+    }
+
+    public class Present
+    {
+        public int Id { set; get; }
+        public int StudentId { set; get; }
+        public int LessonnId { set; get; }
+        public Presence Condition { set; get; }
+        //
+        public Student Student { set; get; }
+        public Lesson Lesson { set; get; }
+        //
+        public enum Presence { Present, AbsenceValid, AbsenceNotValid };
     }
 }
