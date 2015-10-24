@@ -1,11 +1,12 @@
-﻿@model dancing_studio.DAL.Teacher
+﻿@model dancing_studio.DAL.Student
 
 @{
-    ViewBag.Title = "Информация о преодавателе";
+    ViewBag.Title = "Delete";
 }
 
-<h2>Информация о преподавателе</h2>
+<h2>Удаление ученика</h2>
 
+<h3>Вы уверены, что хотите удалить запись об ученике?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -34,8 +35,13 @@
         </dd>
 
     </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("Вернуться к списку", "Index")
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Изменить", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Вернуться к списку", "Index")
-</p>

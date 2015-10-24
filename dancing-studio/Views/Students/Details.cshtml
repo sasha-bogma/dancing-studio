@@ -1,10 +1,10 @@
-﻿@model dancing_studio.DAL.Teacher
+﻿@model dancing_studio.DAL.Student
 
 @{
-    ViewBag.Title = "Информация о преодавателе";
+    ViewBag.Title = "Details";
 }
 
-<h2>Информация о преподавателе</h2>
+<h2>Информация об ученике</h2>
 
 <div>
     <hr />
@@ -31,6 +31,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Birthday)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Groups)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Groups)
         </dd>
 
     </dl>

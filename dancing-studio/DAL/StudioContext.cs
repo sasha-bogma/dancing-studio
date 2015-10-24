@@ -60,9 +60,12 @@
     {
         public int Id { get; set; }
 
+        [Required]
         [Display(Name = "ФИО")]
+        [MaxLength(60)]
         public string Name { get; set; }
 
+        [MaxLength(18)]
         [Display (Name = "Номер телефона")]
         public string PhoneNumber { get; set; }
 
@@ -78,15 +81,27 @@
 
     public class Student
     {
-        public Student(string name) : base() { Name = name; }
-
         public int Id { get; set; }
+
+        [Required]
+        [Display(Name = "ФИО")]
+        [MaxLength(60)]
         public string Name { set; get; }
+
+        [MaxLength(18)]
+        [Display(Name = "Номер телефона")]
         public string PhoneNumber { set; get; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Дата рождения")]
         public DateTime? Birthday { set; get; }
         //
         public virtual ICollection<Parent> Parents { set; get; }
+
+        [Display(Name = "Группы")]
         public virtual ICollection<Group> Groups { set; get; }
+
         public virtual ICollection<Payment> Payments { set; get; }
         public virtual ICollection<Present> Presences { set; get; }
 
@@ -94,12 +109,21 @@
 
     public class Parent
     {
-        public Parent(string name) : base() { Name = name; }
-
         public int Id { set; get; }
+
         public int StudentId { set; get; }
+
+        [MaxLength(60)]
+        [Display(Name="Кем является ученику")]
         public string Status { set; get; }
+
+        [Required]
+        [Display(Name = "ФИО")]
+        [MaxLength(60)]
         public string Name { set; get; }
+
+        [MaxLength(18)]
+        [Display(Name = "Номер телефона")]
         public string Phone { set; get; }
         //
         public Student Student { set; get; }
