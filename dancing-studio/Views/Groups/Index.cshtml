@@ -1,0 +1,40 @@
+﻿@model IEnumerable<dancing_studio.DAL.Group>
+
+@{
+    ViewBag.Title = "Группы";
+}
+
+<h2>Группы</h2>
+
+<p>
+    @Html.ActionLink("Добавить новую", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            ФИО преподавателя
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Teacher.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Изменить", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Подробней", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

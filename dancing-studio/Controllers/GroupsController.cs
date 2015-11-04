@@ -10,139 +10,112 @@ using dancing_studio.DAL;
 
 namespace dancing_studio.Controllers
 {
-    public class StudentsController : Controller
+    public class GroupsController : Controller
     {
         private StudioContext db = new StudioContext();
 
-        // GET: Students
+        // GET: Groups
         public ActionResult Index()
         {
-            return View(db.Students.Include(x => x.Groups).ToList());
+            var groups = db.Groups.Include(g => g.Teacher);
+            return View(groups.ToList());
         }
 
-        // GET: Students/Details/5
+        // GET: Groups/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Include(x => x.Groups).SingleOrDefault(x => x.Id == id);
-            ViewBag.Groups = db.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
-            if (student == null)
+            Group group = db.Groups.Include(g => g.Teacher).SingleOrDefault(x => x.Id == id);
+            if (group == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(group);
         }
 
-        // GET: Students/Create
+        // GET: Groups/Create
         public ActionResult Create()
         {
-            ViewBag.Groups = db.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
+            ViewBag.TeacherId = new SelectList(db.Teachers, "Id", "Name");
             return View();
         }
 
-        // POST: Students/Create
+        // POST: Groups/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,PhoneNumber,Birthday")] Student student, int[] selectedGroups)
+        public ActionResult Create([Bind(Include = "Id,TeacherId,Name")] Group group)
         {
             if (ModelState.IsValid)
             {
-                db.Students.Add(student);
-                db.SaveChanges();
-
-                Student newStudent = db.Students.Find(student.Id);
-
-                newStudent.Groups.Clear();
-                if (selectedGroups != null)
-                {
-                    foreach (var g in db.Groups.Where(gr => selectedGroups.Contains(gr.Id)))
-                    {
-                        newStudent.Groups.Add(g);
-                    }
-                }
-
-                db.Entry(newStudent).State = EntityState.Modified;
+                db.Groups.Add(group);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(student);
+            ViewBag.TeacherId = new SelectList(db.Teachers, "Id", "Name", group.TeacherId);
+            return View(group);
         }
 
-        // GET: Students/Edit/5
+        // GET: Groups/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            Group group = db.Groups.Find(id);
+            if (group == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Groups = db.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
-            return View(student);
+            ViewBag.TeacherId = new SelectList(db.Teachers, "Id", "Name", group.TeacherId);
+            return View(group);
         }
 
-        // POST: Students/Edit/5
+        // POST: Groups/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,PhoneNumber,Birthday")] Student student, int[] selectedGroups)
+        public ActionResult Edit([Bind(Include = "Id,TeacherId,Name")] Group group)
         {
             if (ModelState.IsValid)
             {
-                Student newStudent = db.Students.Find(student.Id);
-                newStudent.Name = student.Name;
-                newStudent.PhoneNumber = student.PhoneNumber;
-                newStudent.Birthday = student.Birthday;
-
-                newStudent.Groups.Clear();
-                if (selectedGroups != null)
-                {
-                    foreach (var g in db.Groups.Where(gr => selectedGroups.Contains(gr.Id)))
-                    {
-                        newStudent.Groups.Add(g);
-                    }
-                }
-
-                db.Entry(newStudent).State = EntityState.Modified;
+                db.Entry(group).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(student);
+            ViewBag.TeacherId = new SelectList(db.Teachers, "Id", "Name", group.TeacherId);
+            return View(group);
         }
 
-        // GET: Students/Delete/5
+        // GET: Groups/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Include(x => x.Groups).SingleOrDefault(x => x.Id == id);
-            ViewBag.Groups = db.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
-            if (student == null)
+            Group group = db.Groups.Include(x => x.Teacher).SingleOrDefault(x => x.Id == id);
+            if (group == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(group);
         }
 
-        // POST: Students/Delete/5
+        // POST: Groups/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Student student = db.Students.Find(id);
-            db.Students.Remove(student);
+            Group group = db.Groups.Find(id);
+            db.Groups.Remove(group);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

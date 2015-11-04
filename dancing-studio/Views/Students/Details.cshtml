@@ -38,7 +38,13 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Groups)
+            @foreach (dancing_studio.DAL.Group group in ViewBag.Groups)
+            {
+                if(Model.Groups.Contains(group))
+                {
+                    @(group.Name + " - " + group.Teacher.Name) <br/>
+                }
+            }
         </dd>
 
     </dl>

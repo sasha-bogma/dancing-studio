@@ -132,8 +132,13 @@
     public class Group
     {
         public int Id { set; get; }
+        [Display(Name = "Преподаватель")]
         public int TeacherId { set; get; }
-        public string Mame { set; get; }
+
+        [Required]
+        [Display(Name = "Название группы")]
+        [MaxLength(60)]
+        public string Name { set; get; }
         //
         public Teacher Teacher { set; get; }
         public virtual ICollection<Student> Students { set; get; }

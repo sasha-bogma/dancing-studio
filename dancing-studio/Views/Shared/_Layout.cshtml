@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title – приложение ASP.NET</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -25,6 +25,7 @@
                     <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Преподаватели", "Index", "Teachers")</li>
                     <li>@Html.ActionLink("Ученики", "Index", "Students")</li>
+                    <li>@Html.ActionLink("Группы", "Index", "Groups")</li>
                 </ul>
             </div>
         </div>
@@ -39,6 +40,47 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
+    <!--стили jquery ui-->
+    @Styles.Render("~/Content/themes/base/css")
+    <!--сама библиотека jquey ui-->
+    @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
+    <!--если браузер не создает специального поля для date, то добавляем datepicker-->
+    <script type="text/javascript">
+    $(function () {
+        if (!Modernizr.inputtypes.date) {
+            $(function () {
+                $("input[type='date']")
+                    .datepicker({ dateFormat: 'dd/mm/yy' })
+                    .get(0).setAttribute("type", "text");
+            });
+            $.datepicker.regional['ru'] = {
+                closeText: 'Закрыть',
+                prevText: 'Пред',
+                nextText: 'След',
+                currentText: 'Сегодня',
+                monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                monthNamesShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
+                'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+                dayNames: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
+                dayNamesShort: ['вск', 'пнд', 'втр', 'срд', 'чтв', 'птн', 'сбт'],
+                dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+                weekHeader: 'Не',
+                dateFormat: 'dd.mm.yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+            $.datepicker.setDefaults($.datepicker.regional['ru']);
+
+        }
+    });
+    </script>
+
+
+
 </body>
 </html>

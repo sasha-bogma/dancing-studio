@@ -1,0 +1,38 @@
+﻿@model dancing_studio.DAL.Group
+
+@{
+    ViewBag.Title = "Удалить";
+}
+
+<h2>Удаление группы</h2>
+
+<h3>Выуверенны, что хотите удалить группу?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("Вернуться к списку", "Index")
+        </div>
+    }
+</div>

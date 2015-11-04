@@ -43,8 +43,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Groups, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.ListBoxFor(model => model.Groups, new MultiSelectList(Model.Groups), new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Groups, "", new { @class = "text-danger" })
+                @foreach (dancing_studio.DAL.Group c in ViewBag.Groups)
+                {
+                    <input type="checkbox" name="selectedGroups" value="@c.Id"
+                           @(Model.Groups.Contains(c) ? "checked=\"checked\"" : "") />@(c.Name+" - "+c.Teacher.Name)<br />
+                }
             </div>
         </div>
 

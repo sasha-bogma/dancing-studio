@@ -1,0 +1,34 @@
+﻿@model dancing_studio.DAL.Group
+
+@{
+    ViewBag.Title = "Подробней";
+}
+
+<h2></h2>
+
+<div>
+    <h4>Информация о группе</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Teacher.Name) преподавателя
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Вернуться к списку", "Index")
+</p>

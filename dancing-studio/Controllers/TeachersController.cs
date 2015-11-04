@@ -38,6 +38,7 @@ namespace dancing_studio.Controllers
         // GET: Teachers/Create
         public ActionResult Create()
         {
+            ViewBag.Groups = db.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
             return View();
         }
 
@@ -46,11 +47,24 @@ namespace dancing_studio.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Teacher teacher)
+        public ActionResult Create(Teacher teacher, int[] selectedGroups)
         {
             if (ModelState.IsValid)
             {
-                db.Teachers.Add(teacher);
+                Teacher newTeacher = new Teacher();
+                newTeacher.Name = teacher.Name;
+                newTeacher.PhoneNumber = teacher.PhoneNumber;
+                newTeacher.Birthday = teacher.Birthday;
+
+                if (selectedGroups != null)
+                {
+                    foreach (var g in db.Groups.Where(gr => selectedGroups.Contains(gr.Id)))
+                    {
+                        newTeacher.Groups.Add(g);
+                    }
+                }
+
+                db.Teachers.Add(newTeacher);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
