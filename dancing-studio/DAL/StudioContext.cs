@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
@@ -149,8 +150,11 @@
     {
         public int Id { set; get; }
         public int GroupId { set; get; }
+        [Display(Name = "Преподаватель")]
         public int TeacherId { set; get; }
+        [Display(Name = "Дата")]
         public DateTime? DateTime { set; get; }
+        [Display(Name = "Стоимость")]
         public int Price { set; get; }
         //
         public Group Group { set; get; }
@@ -188,6 +192,12 @@
         public Student Student { set; get; }
         public Lesson Lesson { set; get; }
         //
-        public enum Presence { Present, AbsenceValid, AbsenceNotValid };
+        public enum Presence {
+            [Display(Name = "присутствует")]
+            Present,
+            [Display(Name = "ув. причина")]
+            AbsenceValid,
+            [Display(Name = "не ув. причина")]
+            AbsenceNotValid };
     }
 }
