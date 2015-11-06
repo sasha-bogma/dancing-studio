@@ -34,7 +34,6 @@ nav,
 section,
 summary {
   display: block;
-  border:double;
 }
 
 audio,
@@ -60,6 +59,7 @@ html {
 
 body {
   margin: 0;
+
 }
 
 a:focus {
@@ -320,10 +320,10 @@ html {
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  font-size: 16px;
   line-height: 1.428571429;
-  color: #333333;
+  color: #6E2020;
   background-color: #ffffff;
 }
 
@@ -1425,6 +1425,9 @@ th {
 .table {
   width: 100%;
   margin-bottom: 20px;
+  border-left:1px solid #C24B4B;
+  border-right:1px solid #C24B4B;
+  border-bottom:1px solid #C24B4B;
 }
 
 .table thead > tr > th,
@@ -1436,7 +1439,8 @@ th {
   padding: 8px;
   line-height: 1.428571429;
   vertical-align: top;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #C24B4B;
+  
 }
 
 .table thead > tr > th {
