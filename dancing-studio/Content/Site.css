@@ -3,12 +3,14 @@
     padding-bottom: 20px;
     background-color:#E7D19D;
     font-family:Andalus;
+    background: linear-gradient(to top, #fefcea, #f1da36) no-repeat;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    font-family:Andalus;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
