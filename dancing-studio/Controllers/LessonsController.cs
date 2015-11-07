@@ -57,8 +57,23 @@ namespace dancing_studio.Controllers
             ViewBag.GroupId = new SelectList(db.Groups, "Id", "Name");
             ViewBag.TeacherId = new SelectList(db.Teachers, "Id", "Name");
             ViewBag.Students = db.Groups.Find(id).Students.ToList();
-            ViewBag.Condition = new Present.Presence(); 
-            return View();
+            ViewBag.Condition = new Present.Presence();
+
+            Lesson lesson = new Lesson();
+            lesson.GroupId = (int)id;
+            lesson.Group = db.Groups.Include(x => x.Students).SingleOrDefault(x => x.Id == id);
+            lesson.Presents = new List<Present>();
+            foreach (Student s in lesson.Group.Students)
+            {
+                Present p = new Present();
+                p.Student = s;
+                p.StudentId = s.Id;
+                p.Condition = Present.Presence.Present;
+
+                lesson.Presents.Add(p);
+            }
+
+            return View(lesson);
         }
 
         // POST: Lessons/Create
@@ -66,7 +81,7 @@ namespace dancing_studio.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,GroupId,TeacherId,DateTime,Price")] Lesson lesson)
+        public ActionResult Create([Bind(Include = "Id,GroupId,TeacherId,DateTime,Price,Presents")] Lesson lesson)
         {
             if (ModelState.IsValid)
             {
