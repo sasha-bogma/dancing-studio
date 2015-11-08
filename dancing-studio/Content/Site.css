@@ -1,8 +1,9 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color:olive;
-    
+    background-color:#E7D19D;
+    font-family:Andalus;
+    background: linear-gradient(to top, #fefcea, #f1da36) no-repeat;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -10,7 +11,6 @@
     padding-left: 15px;
     padding-right: 15px;
     font-family:Andalus;
-    color:white;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -25,5 +25,4 @@ input,
 select,
 textarea {
     max-width: 280px;
-    color:azure;
 }

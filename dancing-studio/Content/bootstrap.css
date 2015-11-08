@@ -59,20 +59,29 @@ html {
 
 body {
   margin: 0;
+
 }
 
 a:focus {
   outline: thin dotted;
 }
 
+a:link {
+    color:black;
+}
+a:visited {
+    color:brown;
+}
 a:active,
 a:hover {
   outline: 0;
+  color:black;
 }
 
 h1 {
   margin: 0.67em 0;
   font-size: 2em;
+  font-family:Algerian;
 }
 
 abbr[title] {
@@ -311,10 +320,10 @@ html {
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  font-size: 16px;
   line-height: 1.428571429;
-  color: #333333;
+  color: #6E2020;
   background-color: #ffffff;
 }
 
@@ -473,7 +482,6 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
 }
@@ -861,6 +869,7 @@ pre code {
   padding-right: 15px;
   padding-left: 15px;
 }
+
 
 .col-xs-1,
 .col-xs-2,
@@ -1416,6 +1425,9 @@ th {
 .table {
   width: 100%;
   margin-bottom: 20px;
+  /*border-left:1px solid #C24B4B;
+  border-right:1px solid #C24B4B;*/
+  border-bottom:1px solid #C24B4B;
 }
 
 .table thead > tr > th,
@@ -1427,7 +1439,8 @@ th {
   padding: 8px;
   line-height: 1.428571429;
   vertical-align: top;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #C24B4B;
+  
 }
 
 .table thead > tr > th {
@@ -1964,11 +1977,17 @@ textarea.input-lg {
   padding-top: 7px;
   margin-top: 0;
   margin-bottom: 0;
+
 }
 
+.form-horizontal{
+  background-color:rgba(255, 255, 237, 0.41);
+  border-radius:8px;
+}
 .form-horizontal .form-group {
   margin-right: -15px;
   margin-left: -15px;
+  
 }
 
 .form-horizontal .form-group:before,
@@ -4501,12 +4520,12 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #222222;
-  border-color: #080808;
+  background-color: #35210B;
+  border-color: #F9FF00;
 }
 
 .navbar-inverse .navbar-brand {
-  color: #999999;
+  color: #F0EF8C;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -4516,11 +4535,11 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-text {
-  color: #999999;
+  color: #DBDA9C;
 }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: #999999;
+  color: #DBDA9C;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
@@ -4928,22 +4947,24 @@ a.list-group-item.active > .badge,
 }
 
 .jumbotron {
-  padding: 30px;
+  padding: 50px;
   margin-bottom: 30px;
   font-size: 21px;
   font-weight: 200;
   line-height: 2.1428571435;
   color: inherit;
   background-color: #eeeeee;
-}
+  background-image: url("bg.jpg");
+}אשך
 
 .jumbotron h1 {
   line-height: 1;
-  color: inherit;
+  color:#4E2618;
 }
 
 .jumbotron p {
-  line-height: 1.4;
+  line-height: 2;
+  color:brown;
 }
 
 .container .jumbotron {
@@ -4952,8 +4973,8 @@ a.list-group-item.active > .badge,
 
 @media screen and (min-width: 768px) {
   .jumbotron {
-    padding-top: 48px;
-    padding-bottom: 48px;
+    padding-top: 240px;
+    padding-bottom: 60px;
   }
   .container .jumbotron {
     padding-right: 60px;
