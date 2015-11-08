@@ -38,10 +38,13 @@
             {
                 <td align="center">
                     @{
-                        dancing_studio.DAL.Present.Presence presence = Model.SingleOrDefault(x => x.DateTime == d.DateTime).Presents.SingleOrDefault(x => x.StudentId == item.Id).Condition;
-                        if (presence == dancing_studio.DAL.Present.Presence.Present) {<p>+</p>}
-                        else if (presence == dancing_studio.DAL.Present.Presence.AbsenceValid) { <p>ув.</p> }
-                        else { <p>не ув.</p> }
+                        if (Model.SingleOrDefault(x => x.DateTime == d.DateTime).Presents.SingleOrDefault(x => x.StudentId == item.Id) != null)
+                        { 
+                            dancing_studio.DAL.Present.Presence presence = Model.SingleOrDefault(x => x.DateTime == d.DateTime).Presents.SingleOrDefault(x => x.StudentId == item.Id).Condition;
+                            if (presence == dancing_studio.DAL.Present.Presence.Present) {<p>+</p>}
+                            else if (presence == dancing_studio.DAL.Present.Presence.AbsenceValid) { <p>ув.</p> }
+                            else { <p>не ув.</p> }
+                        }
                      }
                     
                    
