@@ -71,7 +71,6 @@
         public string PhoneNumber { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата рождения")]
         public DateTime? Birthday { set; get; }
         //
@@ -94,7 +93,6 @@
         public string PhoneNumber { set; get; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата рождения")]
         public DateTime? Birthday { set; get; }
         //
@@ -150,10 +148,16 @@
     {
         public int Id { set; get; }
         public int GroupId { set; get; }
+
         [Display(Name = "Преподаватель")]
         public int TeacherId { set; get; }
+
+        [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Дата")]
         public DateTime? DateTime { set; get; }
+
+        [Required]
         [Display(Name = "Стоимость")]
         public int Price { set; get; }
         //
@@ -186,7 +190,7 @@
     {
         public int Id { set; get; }
         public int StudentId { set; get; }
-        public int LessonnId { set; get; }
+        public int LessonId { set; get; }
         public Presence Condition { set; get; }
         //
         public Student Student { set; get; }

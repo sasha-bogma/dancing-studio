@@ -128,6 +128,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511081640502_InitialCreate.cs" />
+    <Compile Include="Migrations\201511081640502_InitialCreate.Designer.cs">
+      <DependentUpon>201511081640502_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511081720286_MigrateDB.cs" />
+    <Compile Include="Migrations\201511081720286_MigrateDB.Designer.cs">
+      <DependentUpon>201511081720286_MigrateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +208,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511081640502_InitialCreate.resx">
+      <DependentUpon>201511081640502_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511081720286_MigrateDB.resx">
+      <DependentUpon>201511081720286_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
