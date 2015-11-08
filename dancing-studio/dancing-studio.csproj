@@ -187,6 +187,7 @@
     <Content Include="Views\Lessons\Edit.cshtml" />
     <Content Include="Views\Lessons\Index.cshtml" />
     <Content Include="Views\Lessons\ChooseGroup.cshtml" />
+    <Content Include="Views\Lessons\EditPresents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
