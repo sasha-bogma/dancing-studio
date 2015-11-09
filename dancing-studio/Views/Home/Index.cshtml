@@ -20,6 +20,23 @@
         <p> </p>
         <!--<p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Перейти &raquo;</a></p>-->
     </div>
+
+    <div class="col-md-4">
+        @if ((ViewBag.TodayBirthdayStudents).Count != 0)
+        { 
+            <h3>Сегодня День рождения y:</h3>
+            foreach(dancing_studio.DAL.Student s in ViewBag.TodayBirthdayStudents)
+            { 
+                <p> @Html.ActionLink(s.Name, "Details", new { Controller = "Students", action ="Details", id = s.Id })</p>
+            }
+            <h3>Скоро День рождения y:</h3>
+            foreach (dancing_studio.DAL.Student s in ViewBag.NearestBirthDays)
+            {
+                <p>@s.Birthday.Value.Day.@s.Birthday.Value.Month - @Html.ActionLink(s.Name, "Details", new { Controller = "Students", action = "Details", id = s.Id })</p>
+            }
+        }
+    </div>
+
     @*<div class="col-md-4">
         <h2>Расписание</h2>
         <p>Здесь вы можете просматривать и изменять расписание занятий</p>
