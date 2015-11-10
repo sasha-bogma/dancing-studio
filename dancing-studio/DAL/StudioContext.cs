@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
@@ -70,7 +71,6 @@
         public string PhoneNumber { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата рождения")]
         public DateTime? Birthday { set; get; }
         //
@@ -93,7 +93,6 @@
         public string PhoneNumber { set; get; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата рождения")]
         public DateTime? Birthday { set; get; }
         //
@@ -149,8 +148,17 @@
     {
         public int Id { set; get; }
         public int GroupId { set; get; }
+
+        [Display(Name = "Преподаватель")]
         public int TeacherId { set; get; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Дата")]
         public DateTime? DateTime { set; get; }
+
+        [Required]
+        [Display(Name = "Стоимость")]
         public int Price { set; get; }
         //
         public Group Group { set; get; }
@@ -182,12 +190,18 @@
     {
         public int Id { set; get; }
         public int StudentId { set; get; }
-        public int LessonnId { set; get; }
+        public int LessonId { set; get; }
         public Presence Condition { set; get; }
         //
         public Student Student { set; get; }
         public Lesson Lesson { set; get; }
         //
-        public enum Presence { Present, AbsenceValid, AbsenceNotValid };
+        public enum Presence {
+            [Display(Name = "присутствует")]
+            Present,
+            [Display(Name = "ув. причина")]
+            AbsenceValid,
+            [Display(Name = "не ув. причина")]
+            AbsenceNotValid };
     }
 }

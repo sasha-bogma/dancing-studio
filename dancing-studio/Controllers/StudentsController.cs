@@ -17,7 +17,7 @@ namespace dancing_studio.Controllers
         // GET: Students
         public ActionResult Index()
         {
-            return View(db.Students.Include(x => x.Groups).ToList());
+            return View(db.Students.Include(x => x.Groups).OrderBy(x => x.Name).ToList());
         }
 
         // GET: Students/Details/5

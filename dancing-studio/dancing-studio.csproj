@@ -121,12 +121,22 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LessonsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="DAL\StudioContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511081640502_InitialCreate.cs" />
+    <Compile Include="Migrations\201511081640502_InitialCreate.Designer.cs">
+      <DependentUpon>201511081640502_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511081720286_MigrateDB.cs" />
+    <Compile Include="Migrations\201511081720286_MigrateDB.Designer.cs">
+      <DependentUpon>201511081720286_MigrateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +190,13 @@
     <Content Include="Views\Groups\Details.cshtml" />
     <Content Include="Views\Groups\Edit.cshtml" />
     <Content Include="Views\Groups\Index.cshtml" />
+    <Content Include="Views\Lessons\Create.cshtml" />
+    <Content Include="Views\Lessons\Delete.cshtml" />
+    <Content Include="Views\Lessons\Details.cshtml" />
+    <Content Include="Views\Lessons\Edit.cshtml" />
+    <Content Include="Views\Lessons\Index.cshtml" />
+    <Content Include="Views\Lessons\ChooseGroup.cshtml" />
+    <Content Include="Views\Lessons\EditPresents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -191,6 +208,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511081640502_InitialCreate.resx">
+      <DependentUpon>201511081640502_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511081720286_MigrateDB.resx">
+      <DependentUpon>201511081720286_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
