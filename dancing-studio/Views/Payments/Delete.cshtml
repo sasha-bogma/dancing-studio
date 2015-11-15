@@ -1,0 +1,48 @@
+﻿@model dancing_studio.DAL.Payment
+
+@{
+    ViewBag.Title = "Удаление оплаты";
+}
+
+<h2>@Model.Student.Name</h2>
+
+<h3>Вы уверены, что хотите удалить эту оплату?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("Вернуться к списку оплат", "Create", new { id = Model.StudentId})
+        </div>
+    }
+</div>

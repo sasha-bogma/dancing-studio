@@ -1,0 +1,67 @@
+﻿@model dancing_studio.DAL.Payment
+
+@{
+    ViewBag.Title = "Изменить";
+}
+
+<h2>@ViewBag.Student.Name</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.StudentId, "StudentId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StudentId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            //нет валидации 
+            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" id="Date" class="form-control text-box single-line" name="Date" value="@Model.Date.Value.ToShortDateString()" />
+                @*@Html.EditorFor(model => model.Date.Value, new { htmlAttributes = new { @class = "form-control", id = "dat" } })*@
+                @Html.ValidationMessage("Date", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cохранить" class="btn btn-default" />
+            </div>
+        </div>
+        <hr/>
+    </div>
+    
+    
+}
+
+<div>
+    @Html.ActionLink("Вернуться к списку оплат", "Create", new {id = ViewBag.Student.Id})
+</div>
+<script>
+    window.onload = function () {
+        var a = document.getElementById('dat');
+        a.value = document.getElementById('shortDate').value
+    }
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

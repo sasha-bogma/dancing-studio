@@ -122,6 +122,7 @@
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LessonsController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="DAL\StudioContext.cs" />
@@ -135,6 +136,10 @@
     <Compile Include="Migrations\201511081720286_MigrateDB.cs" />
     <Compile Include="Migrations\201511081720286_MigrateDB.Designer.cs">
       <DependentUpon>201511081720286_MigrateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511102114484_MigrDB.cs" />
+    <Compile Include="Migrations\201511102114484_MigrDB.Designer.cs">
+      <DependentUpon>201511102114484_MigrDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -197,6 +202,11 @@
     <Content Include="Views\Lessons\Index.cshtml" />
     <Content Include="Views\Lessons\ChooseGroup.cshtml" />
     <Content Include="Views\Lessons\EditPresents.cshtml" />
+    <Content Include="Views\Payments\Create.cshtml" />
+    <Content Include="Views\Payments\Delete.cshtml" />
+    <Content Include="Views\Payments\Details.cshtml" />
+    <Content Include="Views\Payments\Edit.cshtml" />
+    <Content Include="Views\Payments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -215,6 +225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511081720286_MigrateDB.resx">
       <DependentUpon>201511081720286_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511102114484_MigrDB.resx">
+      <DependentUpon>201511102114484_MigrDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

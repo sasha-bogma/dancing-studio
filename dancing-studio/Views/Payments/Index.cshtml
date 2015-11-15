@@ -1,0 +1,43 @@
+﻿@model IEnumerable<dancing_studio.DAL.Payment>
+
+@{
+    ViewBag.Title = "Учёт Оплат";
+}
+
+<h2>@ViewBag.Student.Name</h2>
+
+<p>
+    @Html.ActionLink("Внести оплату", "Create", new { id = ViewBag.Student.Id})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date.Value.Date.Day).@Html.DisplayFor(modelItem => item.Date.Value.Date.Month).@Html.DisplayFor(modelItem => item.Date.Value.Date.Year)
+        </td>
+        <td>
+            @Html.ActionLink("Изменить", "Edit", new { id=item.Id }) |
+            @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
+            @Html.ActionLink("Удалить", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+<div>
+    @Html.ActionLink("Вернуться к списку учеников", "Index", new { Controller = "Students", action = "Index"})
+</div>

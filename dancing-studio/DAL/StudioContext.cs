@@ -169,8 +169,18 @@
     public class Salary
     {
         public int Id { set; get; }
+
+        [Display(Name = "Преподаватель")]
         public int TeacherId { set; get; }
+
+        [Required]
+        [Range(0, 10000)]
+        [Display(Name = "Сумма")]
         public double Amount { set; get; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Дата")]
         public DateTime? Date { set; get; }
         //
         public Teacher Teacher { set; get; }
@@ -179,8 +189,18 @@
     public class Payment
     {
         public int Id { set; get; }
+
         public int StudentId { set; get; }
+
+        [Required]
+        [Range(0, 1000)]
+        [Display(Name = "Сумма")]
         public double Amount { set; get; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Дата")]
+        [DisplayFormat(DataFormatString = "{0:dd'.'MM'.'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Date { set; get; }
         //
         public Student Student { set; get; }

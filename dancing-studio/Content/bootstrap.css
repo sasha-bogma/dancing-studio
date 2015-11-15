@@ -64,18 +64,20 @@ body {
 
 a:focus {
   outline: thin dotted;
+  color:#FF8D0D;
 }
 
 a:link {
-    color:black;
+    font-style:bold;
+    color:chocolate;
 }
 a:visited {
-    color:brown;
+    color:chocolate;
 }
 a:active,
 a:hover {
   outline: 0;
-  color:black;
+  color:#FF8D0D;
 }
 
 h1 {
@@ -242,6 +244,8 @@ table {
   }
   a,
   a:visited {
+      font-size:16px;
+    color:chocolate;
     text-decoration: underline;
   }
   a[href]:after {
@@ -350,7 +354,7 @@ a {
 
 a:hover,
 a:focus {
-  color: #2a6496;
+  color: #000;
   text-decoration: underline;
 }
 
