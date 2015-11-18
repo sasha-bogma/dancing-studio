@@ -141,6 +141,10 @@
     <Compile Include="Migrations\201511102114484_MigrDB.Designer.cs">
       <DependentUpon>201511102114484_MigrDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511152234009_MigrInfo.cs" />
+    <Compile Include="Migrations\201511152234009_MigrInfo.Designer.cs">
+      <DependentUpon>201511152234009_MigrInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -228,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511102114484_MigrDB.resx">
       <DependentUpon>201511102114484_MigrDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511152234009_MigrInfo.resx">
+      <DependentUpon>201511152234009_MigrInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

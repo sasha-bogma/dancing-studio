@@ -95,6 +95,11 @@
         [DataType(DataType.Date)]
         [Display(Name = "Дата рождения")]
         public DateTime? Birthday { set; get; }
+
+        [MaxLength(500)]
+        [Display(Name="Дополнительная информация")]
+        [DataType(DataType.MultilineText)]
+        public string Info { set; get; }
         //
         public virtual ICollection<Parent> Parents { set; get; }
 
@@ -172,6 +177,11 @@
 
         [Display(Name = "Преподаватель")]
         public int TeacherId { set; get; }
+
+        [Display(Name="Процент")]
+        [Required]
+        [Range(0, 100)]
+        public double lobe { set; get; }
 
         [Required]
         [Range(0, 10000)]

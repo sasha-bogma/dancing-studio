@@ -48,7 +48,7 @@ namespace dancing_studio.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,PhoneNumber,Birthday,Groups")] Student student, int[] selectedGroups)
+        public ActionResult Create(Student student, int[] selectedGroups)
         {
             if (ModelState.IsValid)
             {
@@ -59,6 +59,7 @@ namespace dancing_studio.Controllers
                 newStudent.Name = student.Name;
                 newStudent.PhoneNumber = student.PhoneNumber;
                 newStudent.Birthday = student.Birthday;
+                newStudent.Info = student.Info == null ? "-" : student.Info;
 
                 newStudent.Groups.Clear();
                 if (selectedGroups != null)
@@ -98,7 +99,7 @@ namespace dancing_studio.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,PhoneNumber,Birthday")] Student student, int[] selectedGroups)
+        public ActionResult Edit(Student student, int[] selectedGroups)
         {
             if (ModelState.IsValid)
             {
@@ -106,6 +107,7 @@ namespace dancing_studio.Controllers
                 newStudent.Name = student.Name;
                 newStudent.PhoneNumber = student.PhoneNumber;
                 newStudent.Birthday = student.Birthday;
+                newStudent.Info = student.Info == null ? "-" : student.Info;
 
                 newStudent.Groups.Clear();
                 if (selectedGroups != null)
