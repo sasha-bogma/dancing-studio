@@ -12,8 +12,9 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Группа: @ViewBag.GrName</h4>
         <hr />
+        <h4 style="padding-left: 20px; padding-bottom: 20px ">Группа: @ViewBag.GrName</h4>
+       
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
@@ -46,6 +47,7 @@
                 <input type="submit" value="Сохранить" class="btn btn-default" />
             </div>
         </div>
+        <hr />
     </div>
     <div class="form-group" style="visibility:hidden">
         @Html.LabelFor(model => model.GroupId, htmlAttributes: new { @class = "control-label col-md-2" })

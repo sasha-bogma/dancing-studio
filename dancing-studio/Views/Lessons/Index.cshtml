@@ -61,11 +61,11 @@
         @foreach (var item in Model.OrderBy(x => x.DateTime))
         {
             <td align="center">
-                @Html.ActionLink("Изменить", "Edit", new { id = item.Id })<br />
-                @Html.ActionLink("Отсутствующие", "EditPresents", new { id = item.Id })<br />
-                @Html.ActionLink("Подробно", "Details", new { id = item.Id })<br />
-                @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
-            </td>
+                <p>@Html.ActionLink("Отсутствующие", "EditPresents", new { id = item.Id })<br /> 
+                <p>@Html.ActionLink("Изменить", "Edit", new { id = item.Id }, new { @class = "editer" })
+                <p>@Html.ActionLink("Подробно", "Details", new { id = item.Id }, new { @class = "details" })
+                <p>@Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class = "delete" })
+</td>
         }
         <td></td>
     </tr>

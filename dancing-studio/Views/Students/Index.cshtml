@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<dancing_studio.DAL.Student>
 
 @{
-    ViewBag.Title = "Ученики";
+  ViewBag.Title = "Ученики";
 }
 
 <h2>Ученики</h2>
 
 <p>
-    @Html.ActionLink("Добавить нового", "Create")
+    @Html.ActionLink("Добавить нового", "Create", null, new { @class = "adder" })
 </p>
 <table class="table">
     <tr>
@@ -23,33 +23,39 @@
         <th>
             @Html.DisplayNameFor(model => model.Groups)
         </th>
-        <th></th>
+        <th>
+           <th width="30"></th>
+           <th width="30"></th>
+           <th width ="30"></th>
+           <th width="30"></th>
+        </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Birthday)
-        </td>
-        <td>
-            @foreach (var group in item.Groups)
-            {
-                 @Html.DisplayFor(modelItem => group.Name) <br/>
-            }
-        </td>
-        <td>
-            @Html.ActionLink("Счёт", "Create", new { Controller = "Payments", action = "Create", id = item.Id }) |
-            @Html.ActionLink("Изменить", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Подробней", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Удалить", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birthday)
+            </td>
+            <td>
+                @foreach (var group in item.Groups)
+                {
+                    @Html.DisplayFor(modelItem => group.Name) <br/>
+                }
+            </td>
+            <td>
+                <th>@Html.ActionLink("Счёт", "Create", new { Controller = "Payments", action = "Create", id = item.Id }) </th>
+                <th>@Html.ActionLink("Изменить", "Edit", new { id = item.Id }, new { @class = "editer" })</th>
+                <th>@Html.ActionLink("Подробней", "Details", new { id = item.Id }, new { @class = "details" })</th>
+                <th>@Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class = "delete" })</th>
+            </td>
+        </tr>
+    }
 
 </table>
