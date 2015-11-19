@@ -58,8 +58,16 @@ namespace dancing_studio.Controllers
             {
                 return HttpNotFound();
             }
+            
+            double give = 0;
+            if (db.Payments.Where(p => p.StudentId == id).Count() != 0)
+                give = db.Payments.Where(p => p.StudentId == id).Sum(p => p.Amount);
 
-            ViewBag.Bal = db.Payments.Where(p => p.StudentId == id).Sum(p => p.Amount) - db.Lessons.Include(l => l.Presents).Where(l => l.Presents.FirstOrDefault(p => p.StudentId == id && p.Condition != Present.Presence.AbsenceValid) != null).Sum(l => l.Price);
+            double spend = 0;
+            if (db.Lessons.Include(l => l.Presents).Where(l => l.Presents.FirstOrDefault(p => p.StudentId == id && p.Condition != Present.Presence.AbsenceValid) != null).Count() != 0)
+                spend = db.Lessons.Include(l => l.Presents).Where(l => l.Presents.FirstOrDefault(p => p.StudentId == id && p.Condition != Present.Presence.AbsenceValid) != null).Sum(l => l.Price);
+            
+            ViewBag.Bal = give - spend;
             ViewBag.Student = student;
             ViewBag.Presences = db.Presences.Where(x => x.StudentId == id).Include(p => p.Lesson).OrderBy(p => p.Lesson.DateTime);
             ViewBag.Payments = db.Payments.Where(x => x.StudentId == id).Include(p => p.Student).OrderBy(p => p.Date);

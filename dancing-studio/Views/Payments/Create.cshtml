@@ -19,7 +19,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Date)
             </th>
-            <th></th>
+            <th>
+                <th></th>
+                <th></th>
+            </th>
         </tr>
 
         @foreach (dancing_studio.DAL.Payment item in ViewBag.Payments)
@@ -32,9 +35,9 @@
                     @Html.DisplayFor(modelItem => item.Date.Value.Date.Day).@Html.DisplayFor(modelItem => item.Date.Value.Date.Month).@Html.DisplayFor(modelItem => item.Date.Value.Date.Year)
                 </td>
                 <td>
-                    @Html.ActionLink("Изменить", "Edit", new { id = item.Id }) |
+                    <th>@Html.ActionLink("Изменить", "Edit", new { id = item.Id }, new { @class = "editer" })</th>
                     @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
-                    @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+                    <th>@Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class = "delete" })</th>
                 </td>
             </tr>
         }
@@ -42,7 +45,10 @@
         <tr>
             <th>Баланс</th>
             <th>@ViewBag.Bal</th>
-            <td></td>
+            <td>
+            <th></th>
+            <th></th>
+            </td>
         </tr>
     </table>
 
