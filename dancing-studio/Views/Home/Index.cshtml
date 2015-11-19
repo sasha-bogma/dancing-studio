@@ -38,7 +38,7 @@
 
     <div class="row">
         <div class="col-md-4">
-            <div class="form-horizontal" style="padding-left:10px; padding-bottom:5px">
+            <div class="form-horizontal" style="padding-left:10px; padding-bottom:5px; font-size:medium">
                 <h2 style="padding:7px">Журнал</h2>
                 <p>
                     Здесь вы можете заполнить и просмотреть журнал посещения
@@ -46,25 +46,31 @@
                 <p><a class="btn btn-default" href=@Url.Action("ChooseGroup", "Lessons")>Перейти &raquo;</a></p>
             </div>
          </div>
-      <div class="col-md-4">
+   
+        <div class="col-md-4">
+            <div class="form-horizontal" style="padding-left:10px; padding-bottom:5px; font-size:medium; background-image:url(../../bd.jpg);  background-size: cover;">
+                @if ((ViewBag.TodayBirthdayStudents).Count != 0)
+                {
+                    <h3>Сегодня День рождения y:</h3>
+                    foreach (dancing_studio.DAL.Student s in ViewBag.TodayBirthdayStudents)
+                    {
+                        <p> @Html.ActionLink(s.Name, "Details", new { Controller = "Students", action = "Details", id = s.Id })</p>
+                    }
+                }
+                @if ((ViewBag.NearestBirthDays).Count != 0)
+                {
+                    <h3>Скоро День рождения y:</h3>
+                    foreach (dancing_studio.DAL.Student s in ViewBag.NearestBirthDays)
+                    {
+                        <p>@s.Birthday.Value.Day.@s.Birthday.Value.Month - @Html.ActionLink(s.Name, "Details", new { Controller = "Students", action = "Details", id = s.Id })</p>
+                    }
+                }
+            </div>   
+        </div>
+        <div class="col-md-4">
             <h2> </h2>
             <p> </p>
             <!--<p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Перейти &raquo;</a></p>-->
-      </div>
-        <div class="col-md-4">
-            @if ((ViewBag.TodayBirthdayStudents).Count != 0)
-        {
-                <h3>Сегодня День рождения y:</h3>
-            foreach(dancing_studio.DAL.Student s in ViewBag.TodayBirthdayStudents)
-            {
-                <p> @Html.ActionLink(s.Name, "Details", new { Controller = "Students", action ="Details", id = s.Id })</p>
-            }
-                <h3>Скоро День рождения y:</h3>
-            foreach (dancing_studio.DAL.Student s in ViewBag.NearestBirthDays)
-            {
-                <p>@s.Birthday.Value.Day.@s.Birthday.Value.Month - @Html.ActionLink(s.Name, "Details", new { Controller = "Students", action = "Details", id = s.Id })</p>
-            }
-        }
         </div>
         @*<div class="col-md-4">
                 <h2>Расписание</h2>
