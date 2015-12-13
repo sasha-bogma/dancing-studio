@@ -51,7 +51,10 @@ namespace dancing_studio.Controllers
         {
             if (ModelState.IsValid)
             {
-                Teacher newTeacher = new Teacher();
+                db.Teachers.Add(teacher);
+                db.SaveChanges();
+
+                Student newTeacher = db.Students.Find(teacher.Id);
                 newTeacher.Name = teacher.Name;
                 newTeacher.PhoneNumber = teacher.PhoneNumber;
                 newTeacher.Birthday = teacher.Birthday;
@@ -64,7 +67,7 @@ namespace dancing_studio.Controllers
                     }
                 }
 
-                db.Teachers.Add(newTeacher);
+                db.Entry(newTeacher).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

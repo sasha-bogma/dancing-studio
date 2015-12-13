@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @type = "text"  } })
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", id = "date"} })
                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -63,3 +63,14 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script>
+    window.onload = function () {
+        var m = '@Model.Date.Value.Date.Month'
+        if (m.length == 1) m = '0' + m
+
+        var d = '@Model.Date.Value.Date.Day'
+        if (d.length == 1) d = '0' + d
+        $('#date').val('@Model.Date.Value.Date.Year' + '-' + m + '-' + d);
+    };
+</script>

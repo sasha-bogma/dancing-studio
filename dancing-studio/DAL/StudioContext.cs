@@ -46,6 +46,7 @@
                         m.MapRightKey("StudentId");
                         m.ToTable("GrouoStudents");
                     });
+
             // Ограничение "NOT NULL" и ограничение длины строки для столбца Teacher.Name
             modelBuilder.Entity<Teacher>()
                 .Property(p => p.Name)
@@ -68,10 +69,12 @@
 
         [MaxLength(18)]
         [Display (Name = "Номер телефона")]
+        [Phone]
         public string PhoneNumber { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Дата рождения")]
+        [Required]
         public DateTime? Birthday { set; get; }
         //
         public virtual ICollection<Group> Groups { set; get; }
@@ -90,10 +93,12 @@
 
         [MaxLength(18)]
         [Display(Name = "Номер телефона")]
+        [Phone]
         public string PhoneNumber { set; get; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Дата рождения")]
+        [Required]
         public DateTime? Birthday { set; get; }
 
         [MaxLength(500)]
@@ -147,6 +152,7 @@
         public Teacher Teacher { set; get; }
         public virtual ICollection<Student> Students { set; get; }
         public virtual ICollection<Lesson> Lessons { set; get; }
+        public virtual ICollection<Plan> Plans { set; get; }
     }
 
     public class Lesson
@@ -233,5 +239,33 @@
             AbsenceValid,
             [Display(Name = "не ув. причина")]
             AbsenceNotValid };
+    }
+
+    public class Plan
+    {
+        public int Id { set; get; }
+        public DayOfWeek LessDay { set; get; }
+        public DateTime LessTime { set; get; }
+        public int HallNum { set; get; }
+        public int GroupId { set; get; }
+        //
+        public Group Group { set; get; }
+        //
+        public enum DayOfWeek { 
+            [Display(Name = "Понедельник")]
+            Monday,
+            [Display(Name = "Вторник")]
+            Tuesday,
+            [Display(Name = "Среда")]
+            Wednesday,
+            [Display(Name = "Четверг")]
+            Thursday,
+            [Display(Name = "Пятница")]
+            Friday,
+            [Display(Name = "Суббота")]
+            Saturday,
+            [Display(Name = "Воскресенье")]
+            Sunday
+        }
     }
 }

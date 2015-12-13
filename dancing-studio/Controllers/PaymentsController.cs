@@ -108,7 +108,7 @@ namespace dancing_studio.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Student = db.Students.Find(id);
+            ViewBag.Student = db.Students.Find(payment.StudentId);
             ViewBag.StudentId = new SelectList(db.Students, "Id", "Name", payment.StudentId);
             return View(payment);
         }
@@ -124,7 +124,7 @@ namespace dancing_studio.Controllers
             {
                 db.Entry(payment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", new {id = payment.StudentId});
             }
             ViewBag.Student = db.Students.Find(payment.StudentId);
             ViewBag.StudentId = new SelectList(db.Students, "Id", "Name", payment.StudentId);
