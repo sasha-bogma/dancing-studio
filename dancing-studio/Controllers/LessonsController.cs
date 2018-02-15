@@ -27,10 +27,10 @@ namespace dancing_studio.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             
             ViewBag.groupId = id;
-            ViewBag.grName = _dbContext.Groups.Find(id)?.Name + " - " + _dbContext.Groups.Include(x => x.Teacher).SingleOrDefault(x => x.Id ==id)?.Teacher.Name;
+            ViewBag.grName = _dbContext.Groups.Find(id).Name + " - " + _dbContext.Groups.Include(x => x.Teacher).SingleOrDefault(x => x.Id ==id).Teacher.Name;
 
             ViewBag.Dates = _dbContext.Lessons.Where(x => x.GroupId == id).OrderBy(x => x.DateTime).Select(x => x.DateTime ).ToList();
-            ViewBag.Students = _dbContext.Groups.Find(id)?.Students.OrderBy(x => x.Name).Select(x => new { x.Id, x.Name }).ToList();
+            ViewBag.Students = _dbContext.Groups.Find(id).Students.OrderBy(x => x.Name).Select(x => new { x.Id, x.Name }).ToList();
             var pres = _dbContext.Presences.Include(x => x.Student).Include(x => x.Lesson).Where(x => x.Lesson.GroupId == id).OrderBy(x => x.Lesson.DateTime).ThenBy(x => x.Student.Name).ToList();
             ViewBag.Presences = pres;
 
@@ -45,7 +45,7 @@ namespace dancing_studio.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             
             var lesson = _dbContext.Lessons.Include(x => x.Teacher).Include(x => x.Group).SingleOrDefault(x => x.Id == id);
-            ViewBag.gr = lesson?.GroupId;
+            ViewBag.gr = lesson.GroupId;
             
             return View(lesson);
         }
@@ -57,9 +57,9 @@ namespace dancing_studio.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             
             ViewBag.Gr = id;
-            ViewBag.GrName = _dbContext.Groups.Find(id)?.Name;
-            ViewBag.GroupId = new SelectList(_dbContext.Groups.Where(x => x.Id == id), "Id", "Name", _dbContext.Groups.Find(id)?.Id);
-            ViewBag.TeacherId = new SelectList(_dbContext.Teachers, "Id", "Name", _dbContext.Groups.Find(id)?.TeacherId);
+            ViewBag.GrName = _dbContext.Groups.Find(id).Name;
+            ViewBag.GroupId = new SelectList(_dbContext.Groups.Where(x => x.Id == id), "Id", "Name", _dbContext.Groups.Find(id).Id);
+            ViewBag.TeacherId = new SelectList(_dbContext.Teachers, "Id", "Name", _dbContext.Groups.Find(id).TeacherId);
             
             return View();
         }
@@ -85,7 +85,7 @@ namespace dancing_studio.Controllers
             }
 
             ViewBag.Gr = lesson.GroupId;
-            ViewBag.GrName = _dbContext.Groups.Find(lesson.GroupId)?.Name;
+            ViewBag.GrName = _dbContext.Groups.Find(lesson.GroupId).Name;
 
             ViewBag.GroupId = new SelectList(_dbContext.Groups.Where(x => x.Id == lesson.GroupId), "Id", "Name");
             ViewBag.TeacherId = new SelectList(_dbContext.Teachers, "Id", "Name", lesson.TeacherId);
@@ -123,7 +123,7 @@ namespace dancing_studio.Controllers
                 _dbContext.Entry(p).State = EntityState.Modified;
                 _dbContext.SaveChanges();
             }
-            return RedirectToAction("Index", new { id = _dbContext.Lessons.Find(presents[0].LessonId)?.GroupId});
+            return RedirectToAction("Index", new { id = _dbContext.Lessons.Find(presents[0].LessonId).GroupId});
 
         }
         
@@ -176,7 +176,7 @@ namespace dancing_studio.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             
             var lesson = _dbContext.Lessons.Include(x => x.Teacher).Include(x => x.Group).SingleOrDefault(x => x.Id == id);
-            ViewBag.gr = lesson?.GroupId;
+            ViewBag.gr = lesson.GroupId;
 
             return View(lesson);
         }
@@ -187,7 +187,7 @@ namespace dancing_studio.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var lesson = _dbContext.Lessons.Find(id);
-            var gr = lesson?.GroupId;
+            var gr = lesson.GroupId;
 
             foreach (var p in _dbContext.Presences.Where(x => x.LessonId == id).ToList())
             {
