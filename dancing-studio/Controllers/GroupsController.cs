@@ -12,12 +12,12 @@ namespace dancing_studio.Controllers
 {
     public class GroupsController : Controller
     {
-        private StudioContext db = new StudioContext();
+        private readonly StudioContext _dbContext = new StudioContext();
 
         // GET: Groups
         public ActionResult Index()
         {
-            var groups = db.Groups.Include(g => g.Teacher);
+            var groups = _dbContext.Groups.Include(g => g.Teacher);
             return View(groups.ToList());
         }
 
@@ -25,21 +25,19 @@ namespace dancing_studio.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Group group = db.Groups.Include(g => g.Teacher).SingleOrDefault(x => x.Id == id);
+            
+            var group = _dbContext.Groups.Include(g => g.Teacher).SingleOrDefault(x => x.Id == id);
             if (group == null)
-            {
                 return HttpNotFound();
-            }
+            
             return View(group);
         }
 
         // GET: Groups/Create
         public ActionResult Create()
         {
-            ViewBag.TeacherId = new SelectList(db.Teachers, "Id", "Name");
+            ViewBag.TeacherId = new SelectList(_dbContext.Teachers, "Id", "Name");
             return View();
         }
 
@@ -52,12 +50,12 @@ namespace dancing_studio.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Groups.Add(group);
-                db.SaveChanges();
+                _dbContext.Groups.Add(group);
+                _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TeacherId = new SelectList(db.Teachers, "Id", "Name", group.TeacherId);
+            ViewBag.TeacherId = new SelectList(_dbContext.Teachers, "Id", "Name", group.TeacherId);
             return View(group);
         }
 
@@ -65,15 +63,13 @@ namespace dancing_studio.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Group group = db.Groups.Find(id);
+            
+            var group = _dbContext.Groups.Find(id);
             if (group == null)
-            {
                 return HttpNotFound();
-            }
-            ViewBag.TeacherId = new SelectList(db.Teachers, "Id", "Name", group.TeacherId);
+            
+            ViewBag.TeacherId = new SelectList(_dbContext.Teachers, "Id", "Name", group.TeacherId);
             return View(group);
         }
 
@@ -86,11 +82,11 @@ namespace dancing_studio.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(group).State = EntityState.Modified;
-                db.SaveChanges();
+                _dbContext.Entry(group).State = EntityState.Modified;
+                _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TeacherId = new SelectList(db.Teachers, "Id", "Name", group.TeacherId);
+            ViewBag.TeacherId = new SelectList(_dbContext.Teachers, "Id", "Name", group.TeacherId);
             return View(group);
         }
 
@@ -98,14 +94,12 @@ namespace dancing_studio.Controllers
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Group group = db.Groups.Include(x => x.Teacher).SingleOrDefault(x => x.Id == id);
+            
+            var group = _dbContext.Groups.Include(x => x.Teacher).SingleOrDefault(x => x.Id == id);
             if (group == null)
-            {
                 return HttpNotFound();
-            }
+            
             return View(group);
         }
 
@@ -114,18 +108,17 @@ namespace dancing_studio.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Group group = db.Groups.Find(id);
-            db.Groups.Remove(group);
-            db.SaveChanges();
+            var group = _dbContext.Groups.Find(id);
+            _dbContext.Groups.Remove(group);
+            _dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
-                db.Dispose();
-            }
+                _dbContext.Dispose();
+            
             base.Dispose(disposing);
         }
     }

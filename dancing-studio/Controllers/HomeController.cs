@@ -10,33 +10,36 @@ namespace dancing_studio.Controllers
 {
     public class HomeController : Controller
     {
-        StudioContext db = new StudioContext();
+        private readonly StudioContext _dbContext = new StudioContext();
 
         private static bool IsLikeToday(DateTime? d)
         {
-            if (d == null) return false;
-            DateTime today = new DateTime(((DateTime)d).Year, DateTime.Today.Month, DateTime.Today.Day);
+            if (d == null) 
+                return false;
+            
+            var today = new DateTime(((DateTime)d).Year, DateTime.Today.Month, DateTime.Today.Day);
             return d == today;
         }
 
         private static bool IsBiggerThenToday(DateTime? d)
         {
-            if (d == null) return false;
-            DateTime today = new DateTime( ((DateTime)d).Year, DateTime.Today.Month, DateTime.Today.Day);
+            if (d == null) 
+                return false;
+            
+            var today = new DateTime( ((DateTime)d).Year, DateTime.Today.Month, DateTime.Today.Day);
             return d > today;
         }
 
         public ActionResult Index()
         {
-            var qwer = 1;
-            var a = db.Students.Where(x => x.Birthday.Value.Month == DateTime.Today.Month && x.Birthday.Value.Day == DateTime.Today.Day).OrderBy(x => x.Name).ToList();
+            var a = _dbContext.Students.Where(x => x.Birthday.Value.Month == DateTime.Today.Month && x.Birthday.Value.Day == DateTime.Today.Day).OrderBy(x => x.Name).ToList();
             ViewBag.TodayBirthdayStudents = a;
 
-            List<Student> b = new List<Student>();
-            DateTime currentDate = DateTime.Today.AddDays(1);
+            var b = new List<Student>();
+            var currentDate = DateTime.Today.AddDays(1);
             while (currentDate != DateTime.Today.AddDays(7))
             {
-                var students = db.Students.Where(x => x.Birthday.Value.Month == currentDate.Month && x.Birthday.Value.Day == currentDate.Day).OrderBy(x => x.Name).ToList();
+                var students = _dbContext.Students.Where(x => x.Birthday.Value.Month == currentDate.Month && x.Birthday.Value.Day == currentDate.Day).OrderBy(x => x.Name).ToList();
                 b.AddRange(students);
                 currentDate = currentDate.AddDays(1);
             }

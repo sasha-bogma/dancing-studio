@@ -18,14 +18,12 @@ namespace dancing_studio.Controllers
         public ActionResult Index(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Find(id);
+            
+            var student = db.Students.Find(id);
             if (student == null)
-            {
                 return HttpNotFound();
-            }
+            
             ViewBag.Student = student;
             var payments = db.Payments.Where(x => x.StudentId == id).Include(p => p.Student).OrderBy(p => p.Date);
             return View(payments.ToList());
@@ -35,14 +33,12 @@ namespace dancing_studio.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Payment payment = db.Payments.Find(id);
+            
+            var payment = db.Payments.Find(id);
             if (payment == null)
-            {
                 return HttpNotFound();
-            }
+            
             return View(payment);
         }
 
@@ -50,21 +46,19 @@ namespace dancing_studio.Controllers
         public ActionResult Create(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Find(id);
+        
+            var student = db.Students.Find(id);
             if (student == null)
-            {
                 return HttpNotFound();
-            }
+            
             
             double give = 0;
-            if (db.Payments.Where(p => p.StudentId == id).Count() != 0)
+            if (db.Payments.Count(p => p.StudentId == id) != 0)
                 give = db.Payments.Where(p => p.StudentId == id).Sum(p => p.Amount);
 
             double spend = 0;
-            if (db.Lessons.Include(l => l.Presents).Where(l => l.Presents.FirstOrDefault(p => p.StudentId == id && p.Condition != Present.Presence.AbsenceValid) != null).Count() != 0)
+            if (db.Lessons.Include(l => l.Presents).Count(l => l.Presents.FirstOrDefault(p => p.StudentId == id && p.Condition != Present.Presence.AbsenceValid) != null) != 0)
                 spend = db.Lessons.Include(l => l.Presents).Where(l => l.Presents.FirstOrDefault(p => p.StudentId == id && p.Condition != Present.Presence.AbsenceValid) != null).Sum(l => l.Price);
             
             ViewBag.Bal = give - spend;
@@ -100,14 +94,12 @@ namespace dancing_studio.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Payment payment = db.Payments.Find(id);
+            
+            var payment = db.Payments.Find(id);
             if (payment == null)
-            {
                 return HttpNotFound();
-            }
+            
             ViewBag.Student = db.Students.Find(payment.StudentId);
             ViewBag.StudentId = new SelectList(db.Students, "Id", "Name", payment.StudentId);
             return View(payment);
@@ -135,14 +127,12 @@ namespace dancing_studio.Controllers
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Payment payment = db.Payments.Include(x => x.Student).SingleOrDefault(x => x.Id == id);
+            
+            var payment = db.Payments.Include(x => x.Student).SingleOrDefault(x => x.Id == id);
             if (payment == null)
-            {
                 return HttpNotFound();
-            }
+            
             return View(payment);
         }
 
@@ -151,8 +141,8 @@ namespace dancing_studio.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Payment payment = db.Payments.Find(id);
-            int? studId = payment.StudentId;
+            var payment = db.Payments.Find(id);
+            var studId = payment?.StudentId;
             db.Payments.Remove(payment);
             db.SaveChanges();
             return RedirectToAction("Create", new { id = studId });
@@ -161,9 +151,8 @@ namespace dancing_studio.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
+
             base.Dispose(disposing);
         }
     }
