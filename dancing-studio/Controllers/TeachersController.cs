@@ -54,7 +54,7 @@ namespace dancing_studio.Controllers
                 db.Teachers.Add(teacher);
                 db.SaveChanges();
 
-                Student newTeacher = db.Students.Find(teacher.Id);
+                var newTeacher = db.Teachers.Find(teacher.Id) ?? new Teacher();
                 newTeacher.Name = teacher.Name;
                 newTeacher.PhoneNumber = teacher.PhoneNumber;
                 newTeacher.Birthday = teacher.Birthday;

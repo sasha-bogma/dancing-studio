@@ -28,6 +28,7 @@ namespace dancing_studio.Controllers
 
         public ActionResult Index()
         {
+            var qwer = 1;
             var a = db.Students.Where(x => x.Birthday.Value.Month == DateTime.Today.Month && x.Birthday.Value.Day == DateTime.Today.Day).OrderBy(x => x.Name).ToList();
             ViewBag.TodayBirthdayStudents = a;
 
