@@ -26,3 +26,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.groups {
+    font-size: 2.0vh;
+    margin:0 auto;
+    text-align: center;
+    display: table;
+    vertical-align: middle;
+}
+
+.groupCell {
+    align-content:center;
+}

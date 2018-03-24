@@ -1,0 +1,206 @@
+﻿@model IEnumerable<dancing_studio.DAL.Plan>
+@using dancing_studio.DAL
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+
+<h2>Расписание</h2>
+
+
+
+<table class=" table table-bordered">
+    <tr>
+        <th></th>
+        <th>08:00-09:30</th>
+        <th>09:30-11:00</th>
+        <th>11:00-12:30</th>
+        <th>12:30-14:00</th>
+        <th>14:00-15:30</th>
+        <th>15:30-17:00</th>
+        <th>17:00-18:30</th>
+        <th>18:30-20:00</th>
+        <th>20:00-21:30</th>
+    </tr>
+    @{ string[] days = {"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"};}
+    @for (int i = (int)Plan.DayOfWeek.Monday; i <= (int)Plan.DayOfWeek.Sunday; i++)
+    {
+        <tr>
+            <th> @days[i] </th>
+            @for (int j = (int)Plan.TimeInterval.t08_00; j <= (int)Plan.TimeInterval.t20_00; j++)
+            {
+                <td class="timeCell"> </td> 
+            }
+        </tr> 
+    }
+</table>
+
+
+
+<table  id ="timeTable" class=" table table-bordered">
+    <tr>
+        @foreach (Teacher t in ViewBag.Teachers)
+        {
+            <th>@t.Name</th>
+        }
+    </tr>
+    @for (int i = 0; i < ViewBag.MaxLessons;  i++)
+    {
+        <tr>
+            @foreach (Teacher t in ViewBag.Teachers)
+            {
+                if (t.Groups.Count() > i)
+                {
+                    <td class="groupCell">
+                        @{
+                            string name = t.Name;
+                            int r = (((int)name[4] + (int)name[1]) * (int)name[2])*t.Id % 256;
+                            int g = (((int)name[3] + (int)name[5]) * (int)name[8])*t.Id % 256;
+                            int b = (((int)name[6] + (int)name[7]) * (int)name[9])*t.Id % 256;
+                         }
+                        <div class="groups" style="background-color: rgba(@r, @g, @b , 0.7 )">@t.Groups.ToArray()[i].Name</div>
+                        @*<div class="groups" style="display: none; background-color: rgba(@r, @g, @b , 0.7 )">@t.Groups.ToArray()[i].Name</div>
+                        <div class="groups" style="display: none; background-color: rgba(@r, @g, @b , 0.7 )">@t.Groups.ToArray()[i].Name</div>
+                        <div class="groups" style="display: none; background-color: rgba(@r, @g, @b , 0.7 )">@t.Groups.ToArray()[i].Name</div>
+                        <div class="groups" style="display: none; background-color: rgba(@r, @g, @b , 0.7 )">@t.Groups.ToArray()[i].Name</div>*@
+                       
+                    </td>
+                    
+                
+                }
+                else
+                {
+                    <th class="groupCell"></th> 
+                }
+            }
+        </tr>
+        <tr>
+            @foreach (Teacher t in ViewBag.Teachers)
+            {
+                if (t.Groups.Count() > i)
+                {
+                    <td class="groupCell">
+                        @{
+                    string name = t.Name;
+                    int r = (((int)name[4] + (int)name[1]) * (int)name[2]) * t.Id % 256;
+                    int g = (((int)name[3] + (int)name[5]) * (int)name[8]) * t.Id % 256;
+                    int b = (((int)name[6] + (int)name[7]) * (int)name[9]) * t.Id % 256;
+                        }
+                        <div class="groups" style="background-color: rgba(@r, @g, @b , 0.7 )">@t.Groups.ToArray()[i].Name</div>
+                        @*<div class="groups" style="display: none; background-color: rgba(@r, @g, @b , 0.7 )">@t.Groups.ToArray()[i].Name</div>
+                            <div class="groups" style="display: none; background-color: rgba(@r, @g, @b , 0.7 )">@t.Groups.ToArray()[i].Name</div>
+                            <div class="groups" style="display: none; background-color: rgba(@r, @g, @b , 0.7 )">@t.Groups.ToArray()[i].Name</div>
+                            <div class="groups" style="display: none; background-color: rgba(@r, @g, @b , 0.7 )">@t.Groups.ToArray()[i].Name</div>*@
+
+                    </td>
+
+
+                }
+                else
+                {
+                    <th class="groupCell"></th>
+                }
+            }
+        </tr>
+    }
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".groups").innerHeight($(".timeCell").innerHeight());
+        $(".groups").innerWidth($(".timeCell").innerWidth());
+    });
+
+    $(window).resize(function () {
+        $(".groups").innerHeight($(".timeCell").innerHeight());
+        $(".groups").innerWidth($(".timeCell").innerWidth());
+    });
+
+    $(".timeCell").droppable({
+        drop: function (event, ui) {
+            ui.draggable.offset({ top: $(this).offset().top + 1.5, left: $(this).offset().left + 1.5 });
+            $(this).css("background-color", "");
+            //$(ui.draggable).parent().children(".groups")[2].attr("display", "inline");
+        },
+        over: function () {
+            $(this).css({
+                backgroundColor: "rgba(0, 0, 0 , 0.15 )"
+            });
+        },
+        out: function () {
+            $(this).css("background-color", "");
+        }
+    })
+    $(".groupCell").droppable({
+        drop: function (event, ui) {
+            var yy = $(this).offset().top + ($(this).innerHeight() - ui.draggable.innerHeight())/2;
+            var xx = $(this).offset().left + ($(this).innerWidth() - ui.draggable.innerWidth())/2;
+            ui.draggable.offset({ top: yy, left: xx });
+            $(this).css("background-color", "");
+           
+            
+        },
+        over: function () {
+            $(this).css({
+                backgroundColor: "rgba(0, 0, 0 , 0.15 )"
+            });
+        },
+        out: function (event, ui) {
+            $(this).css("background-color", "");
+        }
+    })
+
+    $(".groups").draggable({
+        revert: "invalid",
+        //helper: "clone",
+    })
+
+</script>
+
+    @*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Group.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LessDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LessTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HallNum)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Group.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LessDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LessTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HallNum)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>*@

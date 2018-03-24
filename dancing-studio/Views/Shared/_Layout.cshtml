@@ -7,6 +7,11 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/Scripts/jquery-ui.min.js")
     <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon">
 </head>
 <body>
@@ -28,6 +33,8 @@
                     <li>@Html.ActionLink("Ученики", "Index", "Students")</li>
                     <li>@Html.ActionLink("Группы", "Index", "Groups")</li>
                     <li>@Html.ActionLink("Журнал", "ChooseGroup", "Lessons")</li>
+                    <li>@Html.ActionLink("Рассписание", "Index", "Plans")</li>
+                    <li><a href="~/help/index.htm">Справка</a></li>
                 </ul>
             </div>
         </div>
@@ -36,12 +43,11 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year – Алина Ракова, Дмитрий Ребенко, Александра Миронцева </p>
+            <p>&copy; @DateTime.Now.Year – Александра Миронцева </p>
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+
 
     <!--стили jquery ui-->
     @Styles.Render("~/Content/themes/base/css")
@@ -49,7 +55,7 @@
     @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
     <!--если браузер не создает специального поля для date, то добавляем datepicker-->
-    <script type="text/javascript">
+    @*<script type="text/javascript">
     $(function () {
         if (!Modernizr.inputtypes.date) {
             $(function () {
@@ -80,7 +86,7 @@
 
         }
     });
-    </script>
+    </script>*@
 
 
 

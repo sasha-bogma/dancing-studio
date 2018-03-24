@@ -57,5 +57,11 @@ namespace dancing_studio.Controllers
 
             return View();
         }
+
+        public ActionResult Help()
+        {
+
+            return Redirect("~/Content/index.html");
+        }
     }
 }

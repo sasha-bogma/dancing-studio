@@ -123,6 +123,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LessonsController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="Controllers\PlansController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="DAL\StudioContext.cs" />
@@ -153,17 +154,97 @@
     <Compile Include="Migrations\201512132007216_Plans.Designer.cs">
       <DependentUpon>201512132007216_Plans.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512132125316_Time Interval.cs" />
+    <Compile Include="Migrations\201512132125316_Time Interval.Designer.cs">
+      <DependentUpon>201512132125316_Time Interval.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\index.htm" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="help\css\all.css" />
+    <Content Include="help\css\printed.css" />
+    <Content Include="help\custom.css" />
+    <Content Include="help\de_search\0xu0032.txt" />
+    <Content Include="help\de_search\0xu0410.txt" />
+    <Content Include="help\de_search\0xu0411.txt" />
+    <Content Include="help\de_search\0xu0412.txt" />
+    <Content Include="help\de_search\0xu0413.txt" />
+    <Content Include="help\de_search\0xu0414.txt" />
+    <Content Include="help\de_search\0xu0415.txt" />
+    <Content Include="help\de_search\0xu0416.txt" />
+    <Content Include="help\de_search\0xu0417.txt" />
+    <Content Include="help\de_search\0xu0418.txt" />
+    <Content Include="help\de_search\0xu041a.txt" />
+    <Content Include="help\de_search\0xu041b.txt" />
+    <Content Include="help\de_search\0xu041c.txt" />
+    <Content Include="help\de_search\0xu041d.txt" />
+    <Content Include="help\de_search\0xu041e.txt" />
+    <Content Include="help\de_search\0xu041f.txt" />
+    <Content Include="help\de_search\0xu0420.txt" />
+    <Content Include="help\de_search\0xu0421.txt" />
+    <Content Include="help\de_search\0xu0422.txt" />
+    <Content Include="help\de_search\0xu0423.txt" />
+    <Content Include="help\de_search\0xu0424.txt" />
+    <Content Include="help\de_search\0xu0426.txt" />
+    <Content Include="help\de_search\0xu0427.txt" />
+    <Content Include="help\de_search\0xu042f.txt" />
+    <Content Include="help\de_search\ids.txt" />
+    <Content Include="help\de_search\prefixes.txt" />
+    <Content Include="help\de_style.css" />
+    <Content Include="help\drex_bullet_1.png" />
+    <Content Include="help\drex_bullet_1_2.png" />
+    <Content Include="help\drex_bullet_1_3.png" />
+    <Content Include="help\drex_bullet_2.png" />
+    <Content Include="help\drex_bullet_2_2.png" />
+    <Content Include="help\drex_bullet_2_3.png" />
+    <Content Include="help\drex_bullet_3.png" />
+    <Content Include="help\drex_bullet_4.png" />
+    <Content Include="help\drex_bullet_4_2.png" />
+    <Content Include="help\drex_bullet_5.png" />
+    <Content Include="help\drex_bullet_5_2.png" />
+    <Content Include="help\drex_osnovnye_funktsii_glavnoj_stranitsy_control_1.png" />
+    <Content Include="help\drex_osnovnye_funktsii_glavnoj_stranitsy_control_2.png" />
+    <Content Include="help\drex_osnovnye_funktsii_glavnoj_stranitsy_screen.png" />
+    <Content Include="help\drex_stranitsa__prepodavateli__custom.png" />
+    <Content Include="help\drex_stranitsa__prepodavateli__custom_2.png" />
+    <Content Include="help\drex_stranitsa__prepodavateli__custom_3.png" />
+    <Content Include="help\drex_stranitsa__prepodavateli__custom_4.png" />
+    <Content Include="help\drex_stranitsa__prepodavateli__custom_5.png" />
+    <Content Include="help\drex_stranitsa__prepodavateli__screen.png" />
+    <Content Include="help\drex_stranitsa__raspisanie__control_1.png" />
+    <Content Include="help\drex_stranitsa__raspisanie__control_2.png" />
+    <Content Include="help\drex_stranitsa__raspisanie__screen.png" />
+    <Content Include="help\drex_stranitsa__ucheniki__control_1.png" />
+    <Content Include="help\drex_stranitsa__ucheniki__control_2.png" />
+    <Content Include="help\drex_stranitsa__ucheniki__control_3.png" />
+    <Content Include="help\drex_stranitsa__ucheniki__control_4.png" />
+    <Content Include="help\drex_stranitsa__ucheniki__control_5.png" />
+    <Content Include="help\drex_stranitsa__ucheniki__custom.png" />
+    <Content Include="help\drex_stranitsa__ucheniki__screen.png" />
+    <Content Include="help\drex_stranitsa__zhurnal__control_1.png" />
+    <Content Include="help\drex_stranitsa__zhurnal__control_2.png" />
+    <Content Include="help\drex_stranitsa__zhurnal__control_3.png" />
+    <Content Include="help\drex_stranitsa__zhurnal__control_4.png" />
+    <Content Include="help\drex_stranitsa__zhurnal__control_5.png" />
+    <Content Include="help\drex_stranitsa__zhurnal__screen.png" />
+    <Content Include="help\index.htm" />
+    <Content Include="help\osnovnye_funktsii_glavnoj_stranitsy.htm" />
+    <Content Include="help\oznakomlenie_s_programmoj__sistema_upravleniya_tsentrom_obucheniya_i_dosuga_.htm" />
+    <Content Include="help\stranitsa__prepodavateli_.htm" />
+    <Content Include="help\stranitsa__raspisanie_.htm" />
+    <Content Include="help\stranitsa__ucheniki_.htm" />
+    <Content Include="help\stranitsa__zhurnal_.htm" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="help\drex_file_list" />
+    <Content Include="help\справка.gui" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -218,9 +299,15 @@
     <Content Include="Views\Payments\Details.cshtml" />
     <Content Include="Views\Payments\Edit.cshtml" />
     <Content Include="Views\Payments\Index.cshtml" />
+    <Content Include="Views\Plans\Create.cshtml" />
+    <Content Include="Views\Plans\Delete.cshtml" />
+    <Content Include="Views\Plans\Details.cshtml" />
+    <Content Include="Views\Plans\Edit.cshtml" />
+    <Content Include="Views\Plans\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -248,6 +335,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512132007216_Plans.resx">
       <DependentUpon>201512132007216_Plans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512132125316_Time Interval.resx">
+      <DependentUpon>201512132125316_Time Interval.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
