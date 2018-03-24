@@ -12,11 +12,11 @@ namespace dancing_studio.Controllers
 {
     public class LessonsController : Controller
     {
-        private StudioContext db = new StudioContext();
+        private readonly StudioContext _dbContext = new StudioContext();
 
         public ActionResult ChooseGroup()
         {
-            List<Group> groups = new List<Group>(db.Groups.Include(l => l.Teacher).OrderBy(l => l.Name));
+            var groups = new List<Group>(_dbContext.Groups.Include(l => l.Teacher).OrderBy(l => l.Name));
             return View(groups);
         }
 
@@ -24,18 +24,17 @@ namespace dancing_studio.Controllers
         public ActionResult Index(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            
             ViewBag.groupId = id;
-            ViewBag.grName = db.Groups.Find(id).Name + " - " + db.Groups.Include(x => x.Teacher).SingleOrDefault(x => x.Id ==id).Teacher.Name;
+            ViewBag.grName = _dbContext.Groups.Find(id).Name + " - " + _dbContext.Groups.Include(x => x.Teacher).SingleOrDefault(x => x.Id ==id).Teacher.Name;
 
-            ViewBag.Dates = db.Lessons.Where(x => x.GroupId == id).OrderBy(x => x.DateTime).Select(x => x.DateTime ).ToList();
-            ViewBag.Students = db.Groups.Find(id).Students.OrderBy(x => x.Name).Select(x => new { x.Id, x.Name }).ToList();
-            List<Present> pres = db.Presences.Include(x => x.Student).Include(x => x.Lesson).Where(x => x.Lesson.GroupId == id).OrderBy(x => x.Lesson.DateTime).ThenBy(x => x.Student.Name).ToList();
+            ViewBag.Dates = _dbContext.Lessons.Where(x => x.GroupId == id).OrderBy(x => x.DateTime).Select(x => x.DateTime ).ToList();
+            ViewBag.Students = _dbContext.Groups.Find(id).Students.OrderBy(x => x.Name).Select(x => new { x.Id, x.Name }).ToList();
+            var pres = _dbContext.Presences.Include(x => x.Student).Include(x => x.Lesson).Where(x => x.Lesson.GroupId == id).OrderBy(x => x.Lesson.DateTime).ThenBy(x => x.Student.Name).ToList();
             ViewBag.Presences = pres;
 
-            var lessons = db.Lessons.Include(l => l.Group).Include(l => l.Teacher).Where(l => l.GroupId == id).OrderBy(l => l.DateTime);
+            var lessons = _dbContext.Lessons.Include(l => l.Group).Include(l => l.Teacher).Where(l => l.GroupId == id).OrderBy(l => l.DateTime);
             return View(lessons.ToList());
         }
 
@@ -43,15 +42,11 @@ namespace dancing_studio.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Lesson lesson = db.Lessons.Include(x => x.Teacher).Include(x => x.Group).SingleOrDefault(x => x.Id == id);
+            
+            var lesson = _dbContext.Lessons.Include(x => x.Teacher).Include(x => x.Group).SingleOrDefault(x => x.Id == id);
             ViewBag.gr = lesson.GroupId;
-            if (lesson == null)
-            {
-                return HttpNotFound();
-            }
+            
             return View(lesson);
         }
 
@@ -59,13 +54,13 @@ namespace dancing_studio.Controllers
         public ActionResult Create(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            
             ViewBag.Gr = id;
-            ViewBag.GrName = db.Groups.Find(id).Name;
-            ViewBag.GroupId = new SelectList(db.Groups.Where(x => x.Id == id), "Id", "Name", db.Groups.Find(id).Id);
-            ViewBag.TeacherId = new SelectList(db.Teachers, "Id", "Name", db.Groups.Find(id).TeacherId);
+            ViewBag.GrName = _dbContext.Groups.Find(id).Name;
+            ViewBag.GroupId = new SelectList(_dbContext.Groups.Where(x => x.Id == id), "Id", "Name", _dbContext.Groups.Find(id).Id);
+            ViewBag.TeacherId = new SelectList(_dbContext.Teachers, "Id", "Name", _dbContext.Groups.Find(id).TeacherId);
+            
             return View();
         }
 
@@ -78,22 +73,23 @@ namespace dancing_studio.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Lessons.Add(lesson);
-                db.SaveChanges();
+                _dbContext.Lessons.Add(lesson);
+                _dbContext.SaveChanges();
 
-                foreach (Student s in db.Groups.Include(x => x.Students).SingleOrDefault(x => x.Id == lesson.GroupId).Students)
+                foreach (var s in _dbContext.Groups.Include(x => x.Students).SingleOrDefault(x => x.Id == lesson.GroupId).Students)
                 {
-                    db.Presences.Add(new Present { StudentId = s.Id, LessonId = lesson.Id, Condition = Present.Presence.Present});
-                    db.SaveChanges();
+                    _dbContext.Presences.Add(new Present { StudentId = s.Id, LessonId = lesson.Id, Condition = Present.Presence.Present});
+                    _dbContext.SaveChanges();
                 }
                 return RedirectToAction("Index", new {id = lesson.GroupId });
             }
 
             ViewBag.Gr = lesson.GroupId;
-            ViewBag.GrName = db.Groups.Find(lesson.GroupId).Name;
+            ViewBag.GrName = _dbContext.Groups.Find(lesson.GroupId).Name;
 
-            ViewBag.GroupId = new SelectList(db.Groups.Where(x => x.Id == lesson.GroupId), "Id", "Name");
-            ViewBag.TeacherId = new SelectList(db.Teachers, "Id", "Name", lesson.TeacherId);
+            ViewBag.GroupId = new SelectList(_dbContext.Groups.Where(x => x.Id == lesson.GroupId), "Id", "Name");
+            ViewBag.TeacherId = new SelectList(_dbContext.Teachers, "Id", "Name", lesson.TeacherId);
+            
             return View(lesson);
         }
 
@@ -102,15 +98,13 @@ namespace dancing_studio.Controllers
         public ActionResult EditPresents(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Lesson lesson = db.Lessons.Find(id);
+            
+            var lesson = _dbContext.Lessons.Find(id);
             if (lesson == null)
-            {
                 return HttpNotFound();
-            }
-            List<Present> presents = db.Presences.Where(x => x.LessonId == id).Include(x => x.Student).Include(x => x.Lesson).OrderBy(x => x.Student.Name).ToList();
+            
+            var presents = _dbContext.Presences.Where(x => x.LessonId == id).Include(x => x.Student).Include(x => x.Lesson).OrderBy(x => x.Student.Name).ToList();
 
             ViewBag.gr = lesson.GroupId;
 
@@ -121,17 +115,15 @@ namespace dancing_studio.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditPresents( List<Present> presents)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) 
+                return View(presents);
+            
+            foreach (var p in presents)
             {
-                foreach (Present p in presents)
-                {
-                    db.Entry(p).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                return RedirectToAction("Index", new { id = db.Lessons.Find(presents[0].LessonId).GroupId});
+                _dbContext.Entry(p).State = EntityState.Modified;
+                _dbContext.SaveChanges();
             }
-
-            return View(presents);
+            return RedirectToAction("Index", new { id = _dbContext.Lessons.Find(presents[0].LessonId).GroupId});
 
         }
         
@@ -140,18 +132,17 @@ namespace dancing_studio.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Lesson lesson = db.Lessons.Include(x => x.Group).SingleOrDefault(x => x.Id == id);
+            
+            var lesson = _dbContext.Lessons.Include(x => x.Group).SingleOrDefault(x => x.Id == id);
             if (lesson == null)
-            {
                 return HttpNotFound();
-            }
+            
             ViewBag.gr = lesson.GroupId;
             ViewBag.grName = lesson.Group.Name;
-            ViewBag.GroupId = new SelectList(db.Groups.Where(x => x.Id == lesson.GroupId), "Id", "Name");
-            ViewBag.TeacherId = new SelectList(db.Teachers, "Id", "Name", lesson.TeacherId);
+            ViewBag.GroupId = new SelectList(_dbContext.Groups.Where(x => x.Id == lesson.GroupId), "Id", "Name");
+            ViewBag.TeacherId = new SelectList(_dbContext.Teachers, "Id", "Name", lesson.TeacherId);
+            
             return View(lesson);
         }
         
@@ -165,16 +156,16 @@ namespace dancing_studio.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(lesson).State = EntityState.Modified;
-                db.SaveChanges();
+                _dbContext.Entry(lesson).State = EntityState.Modified;
+                _dbContext.SaveChanges();
                 return RedirectToAction("Index", new { id = lesson.GroupId });
             }
 
             ViewBag.gr = lesson.GroupId;
             ViewBag.grName = lesson.Group.Name;
 
-            ViewBag.GroupId = new SelectList(db.Groups.Where(x => x.Id == lesson.GroupId), "Id", "Name");
-            ViewBag.TeacherId = new SelectList(db.Teachers, "Id", "Name", lesson.TeacherId);
+            ViewBag.GroupId = new SelectList(_dbContext.Groups.Where(x => x.Id == lesson.GroupId), "Id", "Name");
+            ViewBag.TeacherId = new SelectList(_dbContext.Teachers, "Id", "Name", lesson.TeacherId);
             return View(lesson);
         }
 
@@ -182,15 +173,11 @@ namespace dancing_studio.Controllers
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Lesson lesson = db.Lessons.Include(x => x.Teacher).Include(x => x.Group).SingleOrDefault(x => x.Id == id);
+            
+            var lesson = _dbContext.Lessons.Include(x => x.Teacher).Include(x => x.Group).SingleOrDefault(x => x.Id == id);
             ViewBag.gr = lesson.GroupId;
-            if (lesson == null)
-            {
-                return HttpNotFound();
-            }
+
             return View(lesson);
         }
 
@@ -199,26 +186,25 @@ namespace dancing_studio.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Lesson lesson = db.Lessons.Find(id);
-            int gr = lesson.GroupId;
+            var lesson = _dbContext.Lessons.Find(id);
+            var gr = lesson.GroupId;
 
-            foreach (Present p in db.Presences.Where(x => x.LessonId == id).ToList())
+            foreach (var p in _dbContext.Presences.Where(x => x.LessonId == id).ToList())
             {
-                db.Presences.Remove(p);
-                db.SaveChanges();
+                _dbContext.Presences.Remove(p);
+                _dbContext.SaveChanges();
             }
 
-            db.Lessons.Remove(lesson);
-            db.SaveChanges();
+            _dbContext.Lessons.Remove(lesson);
+            _dbContext.SaveChanges();
             return RedirectToAction("Index", new { id = gr });
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
-                db.Dispose();
-            }
+                _dbContext.Dispose();
+            
             base.Dispose(disposing);
         }
     }

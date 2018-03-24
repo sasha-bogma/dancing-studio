@@ -12,34 +12,32 @@ namespace dancing_studio.Controllers
 {
     public class StudentsController : Controller
     {
-        private StudioContext db = new StudioContext();
+        private readonly StudioContext _dbContext = new StudioContext();
 
         // GET: Students
         public ActionResult Index()
         {
-            return View(db.Students.Include(x => x.Groups).OrderBy(x => x.Name).ToList());
+            return View(_dbContext.Students.Include(x => x.Groups).OrderBy(x => x.Name).ToList());
         }
 
         // GET: Students/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Include(x => x.Groups).SingleOrDefault(x => x.Id == id);
-            ViewBag.Groups = db.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
+            
+            var student = _dbContext.Students.Include(x => x.Groups).SingleOrDefault(x => x.Id == id);
+            ViewBag.Groups = _dbContext.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
             if (student == null)
-            {
                 return HttpNotFound();
-            }
+            
             return View(student);
         }
 
         // GET: Students/Create
         public ActionResult Create()
         {
-            ViewBag.Groups = db.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
+            ViewBag.Groups = _dbContext.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
             return View();
         }
 
@@ -50,47 +48,39 @@ namespace dancing_studio.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Student student, int[] selectedGroups)
         {
-            if (ModelState.IsValid)
-            {
-                db.Students.Add(student);
-                db.SaveChanges();
+            if (!ModelState.IsValid) 
+                return View(student);
+            
+            _dbContext.Students.Add(student);
+            _dbContext.SaveChanges();
 
-                Student newStudent = db.Students.Find(student.Id);
-                newStudent.Name = student.Name;
-                newStudent.PhoneNumber = student.PhoneNumber;
-                newStudent.Birthday = student.Birthday;
-                newStudent.Info = student.Info == null ? "-" : student.Info;
+            var newStudent = _dbContext.Students.Find(student.Id) ?? new Student();
+            newStudent.Name = student.Name;
+            newStudent.PhoneNumber = student.PhoneNumber;
+            newStudent.Birthday = student.Birthday;
+            newStudent.Info = student.Info ?? "-";
 
-                newStudent.Groups.Clear();
-                if (selectedGroups != null)
-                {
-                    foreach (var g in db.Groups.Where(gr => selectedGroups.Contains(gr.Id)))
-                    {
-                        newStudent.Groups.Add(g);
-                    }
-                }
+            newStudent.Groups.Clear();
+            if (selectedGroups != null)
+                foreach (var g in _dbContext.Groups.Where(gr => selectedGroups.Contains(gr.Id)))
+                    newStudent.Groups.Add(g);
 
-                db.Entry(newStudent).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            _dbContext.Entry(newStudent).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index");
 
-            return View(student);
         }
 
         // GET: Students/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Find(id);
+            var student = _dbContext.Students.Find(id);
             if (student == null)
-            {
                 return HttpNotFound();
-            }
-            ViewBag.Groups = db.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
+            
+            ViewBag.Groups = _dbContext.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
             return View(student);
         }
 
@@ -101,43 +91,36 @@ namespace dancing_studio.Controllers
        // [ValidateAntiForgeryToken]
         public ActionResult Edit(Student student, int[] selectedGroups)
         {
-            if (ModelState.IsValid)
-            {
-                Student newStudent = db.Students.Find(student.Id);
-                newStudent.Name = student.Name;
-                newStudent.PhoneNumber = student.PhoneNumber;
-                newStudent.Birthday = student.Birthday;
-                newStudent.Info = student.Info == null ? "-" : student.Info;
+            if (!ModelState.IsValid) 
+                return View(student);
+            
+            var newStudent = _dbContext.Students.Find(student.Id) ?? new Student();
+            newStudent.Name = student.Name;
+            newStudent.PhoneNumber = student.PhoneNumber;
+            newStudent.Birthday = student.Birthday;
+            newStudent.Info = student.Info == null ? "-" : student.Info;
 
-                newStudent.Groups.Clear();
-                if (selectedGroups != null)
-                {
-                    foreach (var g in db.Groups.Where(gr => selectedGroups.Contains(gr.Id)))
-                    {
-                        newStudent.Groups.Add(g);
-                    }
-                }
+            newStudent.Groups.Clear();
+            if (selectedGroups != null)
+                foreach (var g in _dbContext.Groups.Where(gr => selectedGroups.Contains(gr.Id)))
+                    newStudent.Groups.Add(g);
 
-                db.Entry(newStudent).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(student);
+            _dbContext.Entry(newStudent).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Students/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Include(x => x.Groups).SingleOrDefault(x => x.Id == id);
-            ViewBag.Groups = db.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
+            
+            var student = _dbContext.Students.Include(x => x.Groups).SingleOrDefault(x => x.Id == id);
+            ViewBag.Groups = _dbContext.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
             if (student == null)
-            {
                 return HttpNotFound();
-            }
+            
             return View(student);
         }
 
@@ -146,9 +129,9 @@ namespace dancing_studio.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Student student = db.Students.Find(id);
-            db.Students.Remove(student);
-            db.SaveChanges();
+            var student = _dbContext.Students.Find(id);
+            _dbContext.Students.Remove(student);
+            _dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -156,9 +139,8 @@ namespace dancing_studio.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
-                db.Dispose();
-            }
+                _dbContext.Dispose();
+            
             base.Dispose(disposing);
         }
     }
