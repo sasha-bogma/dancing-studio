@@ -1,7 +1,7 @@
 ﻿@model dancing_studio.DAL.Payment
 
 @{
-    ViewBag.Title = "Изменить";
+    ViewBag.Title = "Змінити";
 }
 
 <h2>@ViewBag.Student.Name</h2>
@@ -42,7 +42,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Cохранить" class="btn btn-default" />
+                <input type="submit" value="Зберегти" class="btn btn-default" />
             </div>
         </div>
         <hr/>
@@ -52,7 +52,7 @@
 }
 
 <div>
-    @Html.ActionLink("Вернуться к списку оплат", "Create", new {id = ViewBag.Student.Id})
+    @Html.ActionLink("Повернутися до списку оплат", "Create", new {id = ViewBag.Student.Id})
 </div>
 <script>
     window.onload = function () {

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<dancing_studio.DAL.Teacher>
 
 @{
-    ViewBag.Title = "Преподаватели";
+    ViewBag.Title = "Викладачи";
 }
 
-<h2>Преподаватели</h2>
+<h2>Викладачи</h2>
 
 <p>
     @Html.ActionLink("Добавить", "Create", null, new { @class = "adder" })
@@ -40,9 +40,9 @@
                 @Html.DisplayFor(modelItem => item.Birthday)
             </td>
             <td>
-                <th>@Html.ActionLink("Изменить", "Edit", new { id = item.Id }, new { @class = "editer" })</th>
-                <th>@Html.ActionLink("Подробней", "Details", new { id = item.Id }, new { @class = "details" })</th>
-                <th>@Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class = "delete" })</th>
+                <th>@Html.ActionLink("Змінити", "Edit", new { id = item.Id }, new { @class = "editer" })</th>
+                <th>@Html.ActionLink("Детальніше", "Details", new { id = item.Id }, new { @class = "details" })</th>
+                <th>@Html.ActionLink("Видалити", "Delete", new { id = item.Id }, new { @class = "delete" })</th>
             </td>
         </tr>
     }

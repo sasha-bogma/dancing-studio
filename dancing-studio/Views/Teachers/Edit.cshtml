@@ -1,10 +1,10 @@
 ﻿@model dancing_studio.DAL.Teacher
 
 @{
-    ViewBag.Title = "Изменение";
+    ViewBag.Title = "зміна";
 }
 
-<h2>Изменение информации о преподавателе</h2>
+<h2>Зміна информації про викладача</h2>
 
 
 @using (Html.BeginForm())
@@ -43,7 +43,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Сохранить" class="btn btn-default" />
+                <input type="submit" value="Зберегти" class="btn btn-default" />
             </div>
         </div>
         <hr />
@@ -51,7 +51,7 @@
 }
 
 <div>
-    @Html.ActionLink("Вернуться к списку", "Index")
+    @Html.ActionLink("Повернутися до списку", "Index")
 </div>
 
 @section Scripts {

@@ -23,3 +23,6 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
+*.mdf
+*.ldf
+/.vs/dancing-studio/v15/Server/sqlite3/db.lock

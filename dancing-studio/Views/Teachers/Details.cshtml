@@ -1,10 +1,10 @@
 ﻿@model dancing_studio.DAL.Teacher
 
 @{
-    ViewBag.Title = "Информация о преодавателе";
+    ViewBag.Title = "Информація про викладача";
 }
 
-<h2>Информация о преподавателе</h2>
+<h2>Информація про викладача</h2>
 
 <div>
     <hr />
@@ -36,6 +36,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Изменить", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Вернуться к списку", "Index")
+    @Html.ActionLink("Змінити", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Повернутися до списку", "Index")
 </p>

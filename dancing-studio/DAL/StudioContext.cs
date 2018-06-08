@@ -10,19 +10,11 @@
 
     public class StudioContext : DbContext
     {
-        // Контекст настроен для использования строки подключения "StudioContext" из файла конфигурации  
-        // приложения (App.config или Web.config). По умолчанию эта строка подключения указывает на базу данных 
-        // "dancing_studio.DAL.StudioContext" в экземпляре LocalDb. 
-        // 
-        // Если требуется выбрать другую базу данных или поставщик базы данных, измените строку подключения "StudioContext" 
-        // в файле конфигурации приложения.
         public StudioContext()
             : base("name=StudioContext")
         {
         }
-
-        // Добавьте DbSet для каждого типа сущности, который требуется включить в модель. Дополнительные сведения 
-        // о настройке и использовании модели Code First см. в статье http://go.microsoft.com/fwlink/?LinkId=390109.
+        
 
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }
@@ -35,7 +27,6 @@
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // Отношение "многие ко многим" между таблицами группы и студенты
             modelBuilder.Entity<Group>().
                 HasMany(a => a.Students).
                 WithMany(p => p.Groups).
@@ -46,8 +37,7 @@
                         m.MapRightKey("StudentId");
                         m.ToTable("GrouoStudents");
                     });
-
-            // Ограничение "NOT NULL" и ограничение длины строки для столбца Teacher.Name
+            
             modelBuilder.Entity<Teacher>()
                 .Property(p => p.Name)
                 .IsRequired().HasMaxLength(60);
@@ -65,17 +55,17 @@
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "ФИО")]
+        [Display(Name = "ПІБ")]
         [MaxLength(60)]
         public string Name { get; set; }
 
         [MaxLength(18)]
-        [Display (Name = "Номер телефона")]
+        [Display (Name = "Номер телефону")]
         [Phone]
         public string PhoneNumber { get; set; }
 
         [DataType(DataType.Date)]
-        [Display(Name = "Дата рождения")]
+        [Display(Name = "Дата народження")]
         [Required]
         public DateTime? Birthday { set; get; }
         //
@@ -89,28 +79,28 @@
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "ФИО")]
+        [Display(Name = "ПІБ")]
         [MaxLength(60)]
         public string Name { set; get; }
 
         [MaxLength(18)]
-        [Display(Name = "Номер телефона")]
+        [Display(Name = "Номер телефону")]
         [Phone]
         public string PhoneNumber { set; get; }
 
         [DataType(DataType.Date)]
-        [Display(Name = "Дата рождения")]
+        [Display(Name = "Дата народження")]
         [Required]
         public DateTime? Birthday { set; get; }
 
         [MaxLength(500)]
-        [Display(Name="Дополнительная информация")]
+        [Display(Name="Додаткова информація")]
         [DataType(DataType.MultilineText)]
         public string Info { set; get; }
         //
         public virtual ICollection<Parent> Parents { set; get; }
 
-        [Display(Name = "Группы")]
+        [Display(Name = "Групи")]
         public virtual ICollection<Group> Groups { set; get; }
 
         public virtual ICollection<Payment> Payments { set; get; }
@@ -125,16 +115,16 @@
         public int StudentId { set; get; }
 
         [MaxLength(60)]
-        [Display(Name="Кем является ученику")]
+        [Display(Name="Ким доводиться")]
         public string Status { set; get; }
 
         [Required]
-        [Display(Name = "ФИО")]
+        [Display(Name = "ПІБ")]
         [MaxLength(60)]
         public string Name { set; get; }
 
         [MaxLength(18)]
-        [Display(Name = "Номер телефона")]
+        [Display(Name = "Номер телефону")]
         public string Phone { set; get; }
         //
         public Student Student { set; get; }
@@ -143,11 +133,11 @@
     public class Group
     {
         public int Id { set; get; }
-        [Display(Name = "Преподаватель")]
+        [Display(Name = "Викладач")]
         public int TeacherId { set; get; }
 
         [Required]
-        [Display(Name = "Название группы")]
+        [Display(Name = "Назва групи")]
         [MaxLength(60)]
         public string Name { set; get; }
         //
@@ -162,7 +152,7 @@
         public int Id { set; get; }
         public int GroupId { set; get; }
 
-        [Display(Name = "Преподаватель")]
+        [Display(Name = "Викладач")]
         public int TeacherId { set; get; }
 
         [Required]
@@ -171,7 +161,7 @@
         public DateTime? DateTime { set; get; }
 
         [Required]
-        [Display(Name = "Стоимость")]
+        [Display(Name = "Вартість")]
         public int Price { set; get; }
         //
         public Group Group { set; get; }
@@ -183,17 +173,17 @@
     {
         public int Id { set; get; }
 
-        [Display(Name = "Преподаватель")]
+        [Display(Name = "Викладач")]
         public int TeacherId { set; get; }
 
-        [Display(Name="Процент")]
+        [Display(Name="Відсоток")]
         [Required]
         [Range(0, 100)]
         public double lobe { set; get; }
 
         [Required]
         [Range(0, 10000)]
-        [Display(Name = "Сумма")]
+        [Display(Name = "Сума")]
         public double Amount { set; get; }
 
         [Required]
@@ -212,7 +202,7 @@
 
         [Required]
         [Range(0, 1000)]
-        [Display(Name = "Сумма")]
+        [Display(Name = "Сума")]
         public double Amount { set; get; }
 
         [Required]
@@ -235,11 +225,11 @@
         public Lesson Lesson { set; get; }
         //
         public enum Presence {
-            [Display(Name = "присутствует")]
+            [Display(Name = "присутній")]
             Present,
-            [Display(Name = "ув. причина")]
+            [Display(Name = "пов. причина")]
             AbsenceValid,
-            [Display(Name = "не ув. причина")]
+            [Display(Name = "не пов. причина")]
             AbsenceNotValid };
     }
 
@@ -254,19 +244,19 @@
         public Group Group { set; get; }
         //
         public enum DayOfWeek { 
-            [Display(Name = "Понедельник")]
+            [Display(Name = "Понеділок")]
             Monday,
-            [Display(Name = "Вторник")]
+            [Display(Name = "Вівторок")]
             Tuesday,
-            [Display(Name = "Среда")]
+            [Display(Name = "Середа")]
             Wednesday,
-            [Display(Name = "Четверг")]
+            [Display(Name = "Четвер")]
             Thursday,
-            [Display(Name = "Пятница")]
+            [Display(Name = "П'ятниця")]
             Friday,
-            [Display(Name = "Суббота")]
+            [Display(Name = "Субота")]
             Saturday,
-            [Display(Name = "Воскресенье")]
+            [Display(Name = "Неділя")]
             Sunday
         }
         public enum TimeInterval

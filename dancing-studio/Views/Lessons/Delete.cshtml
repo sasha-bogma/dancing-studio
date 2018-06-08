@@ -1,12 +1,12 @@
 ﻿@model dancing_studio.DAL.Lesson
 
 @{
-    ViewBag.Title = "Удаление";
+    ViewBag.Title = "Видалення";
 }
 
-<h2>Удаление урока</h2>
+<h2>Видалення уроку</h2>
 
-<h3>Вы уверены, что хотите удалить урок?</h3>
+<h3>Ви впевненні, що бажаете видалети урок?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            Провел(а)
+            Провів(ела)
         </dt>
 
         <dd>
@@ -48,7 +48,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            <input type="submit" value="Видалети="btn btn-default" /> |
             @Html.ActionLink("Вернуться к журналу", "Index", new { id = Model.GroupId })
         </div>
     }

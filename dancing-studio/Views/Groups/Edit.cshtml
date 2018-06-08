@@ -1,10 +1,10 @@
 ﻿@model dancing_studio.DAL.Group
 
 @{
-    ViewBag.Title = "Изменение";
+    ViewBag.Title = "Зміна";
 }
 
-<h2>Изменение информации о группе</h2>
+<h2>Зміна інформації про групу</h2>
 
 
 @using (Html.BeginForm())
@@ -34,7 +34,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Сохранить" class="btn btn-default" />
+                <input type="submit" value="Зберегти" class="btn btn-default" />
             </div>
         </div>
         <hr />
@@ -42,7 +42,7 @@
 }
 
 <div>
-    @Html.ActionLink("Вернуться к списку", "Index")
+    @Html.ActionLink("Повернутися до списку", "Index")
 </div>
 
 @section Scripts {

@@ -1,12 +1,12 @@
 ﻿@model dancing_studio.DAL.Payment
 
 @{
-    ViewBag.Title = "Удаление оплаты";
+    ViewBag.Title = "Видалення  оплат";
 }
 
 <h2>@Model.Student.Name</h2>
 
-<h3>Вы уверены, что хотите удалить эту оплату?</h3>
+<h3>Ви впевненні, що бажаете видалити цю оплату?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -41,8 +41,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Удалить" class="btn btn-default" /> |
-            @Html.ActionLink("Вернуться к списку оплат", "Create", new { id = Model.StudentId})
+            <input type="submit" value="Видалити" class="btn btn-default" /> |
+            @Html.ActionLink("Повернутися до списку оплат", "Create", new { id = Model.StudentId})
         </div>
     }
 </div>

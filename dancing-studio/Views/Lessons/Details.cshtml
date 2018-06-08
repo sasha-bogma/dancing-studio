@@ -1,10 +1,10 @@
 ﻿@model dancing_studio.DAL.Lesson
 
 @{
-    ViewBag.Title = "Подробно";
+    ViewBag.Title = "Детальніше";
 }
 
-<h2>Информация об уроке</h2>
+<h2>Информація про урок</h2>
 
 <div>
     <hr />
@@ -18,7 +18,7 @@
         </dd>
 
         <dt>
-           Провел(а)
+           Провів(ела)
         </dt>
 
         <dd>
@@ -44,6 +44,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Изменить", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Вернуться к журналу", "Index", new { id = Model.GroupId })
+    @Html.ActionLink("Змінити", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Повернутися до журналу", "Index", new { id = Model.GroupId })
 </p>

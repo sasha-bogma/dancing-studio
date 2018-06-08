@@ -1,10 +1,10 @@
 ﻿@model dancing_studio.DAL.Group
 
 @{
-    ViewBag.Title = "Добавить";
+    ViewBag.Title = "Додати";
 }
 
-<h2>Создание новой группы</h2>
+<h2>Створення нової групи'</h2>
 
 
 @using (Html.BeginForm()) 
@@ -28,11 +28,11 @@
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>6
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Создать" class="btn btn-default" />
+                <input type="submit" value="Створити" class="btn btn-default" />
             </div>
         </div>
         <hr />
@@ -40,7 +40,7 @@
 }
 
 <div>
-    @Html.ActionLink("Вернуться к списку", "Index")
+    @Html.ActionLink("Повернутися до списку", "Index")
 </div>
 
 

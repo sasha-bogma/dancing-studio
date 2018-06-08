@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<dancing_studio.DAL.Payment>
 
 @{
-    ViewBag.Title = "Учёт Оплат";
+    ViewBag.Title = "Облік оплат";
 }
 
 <h2>@ViewBag.Student.Name</h2>
@@ -29,8 +29,8 @@
             @Html.DisplayFor(modelItem => item.Date.Value.Date.Day).@Html.DisplayFor(modelItem => item.Date.Value.Date.Month).@Html.DisplayFor(modelItem => item.Date.Value.Date.Year)
         </td>
         <td>
-            <th>@Html.ActionLink("Изменить", "Edit", new { id = item.Id }, new { @class = "editer" }) </th>
-            <th>@Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class = "delete" })</th>
+            <th>@Html.ActionLink("Змінити", "Edit", new { id = item.Id }, new { @class = "editer" }) </th>
+            <th>@Html.ActionLink("Видалити", "Delete", new { id = item.Id }, new { @class = "delete" })</th>
         </td>
     </tr>
 }
@@ -38,5 +38,5 @@
 </table>
 
 <div>
-    @Html.ActionLink("Вернуться к списку учеников", "Index", new { Controller = "Students", action = "Index"})
+    @Html.ActionLink("Повернутися до списку учнів", "Index", new { Controller = "Students", action = "Index"})
 </div>
