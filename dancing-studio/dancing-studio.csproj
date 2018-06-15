@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -126,7 +128,16 @@
     <Compile Include="Controllers\PlansController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
+    <Compile Include="DAL\Model\Group.cs" />
+    <Compile Include="DAL\Model\Lesson.cs" />
+    <Compile Include="DAL\Model\Parent.cs" />
+    <Compile Include="DAL\Model\Payment.cs" />
+    <Compile Include="DAL\Model\Plan.cs" />
+    <Compile Include="DAL\Model\Present.cs" />
+    <Compile Include="DAL\Model\Salary.cs" />
+    <Compile Include="DAL\Model\Student.cs" />
     <Compile Include="DAL\StudioContext.cs" />
+    <Compile Include="DAL\Model\Teacher.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
