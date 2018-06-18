@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="dancing_studio.DAL.Group">
+    <Position X="6" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMCAAAAAAAIAAAAAAAACAQAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>DAL\Model\Group.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Teacher" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Students" />
+      <Property Name="Lessons" />
+      <Property Name="Plans" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="dancing_studio.DAL.Lesson">
+    <Position X="2.5" Y="4.75" Width="1.5" />
+    <AssociationLine Name="Teacher" Type="dancing_studio.DAL.Teacher" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.688" Y="4.75" />
+        <Point X="2.688" Y="3.438" />
+        <Point X="5.75" Y="3.438" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Presents" Type="dancing_studio.DAL.Present" FixedFromPoint="true">
+      <Path>
+        <Point X="3.562" Y="7.084" />
+        <Point X="3.562" Y="8.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAGCAEAEAQAAAAAAAAAACAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>DAL\Model\Lesson.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Group" />
+      <Property Name="Teacher" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Presents" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="dancing_studio.DAL.Parent">
+    <Position X="6" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEQAAAAAAAAAAAAAQAAAAAAAAAAAAAIAACAAA=</HashCode>
+      <FileName>DAL\Model\Parent.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Student" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="dancing_studio.DAL.Payment">
+    <Position X="9.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQAAAAAAAAAAAAACAAAAAAAABAAAAAAACAAA=</HashCode>
+      <FileName>DAL\Model\Payment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Student" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="dancing_studio.DAL.Plan">
+    <Position X="8.75" Y="5.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="dancing_studio.DAL.Plan.DayOfWeek" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DAL\Model\Plan.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="dancing_studio.DAL.Plan.TimeInterval" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DAL\Model\Plan.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAACAEAEAAAAAABAQAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>DAL\Model\Plan.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Group" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="dancing_studio.DAL.Present">
+    <Position X="2.5" Y="8.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="dancing_studio.DAL.Present.Presence" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DAL\Model\Present.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <AssociationLine Name="Lesson" Type="dancing_studio.DAL.Lesson" FixedFromPoint="true">
+      <Path>
+        <Point X="3.938" Y="8.25" />
+        <Point X="3.938" Y="7.084" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQACAAEAAAAAACAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>DAL\Model\Present.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Student" />
+      <Property Name="Lesson" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="dancing_studio.DAL.Salary">
+    <Position X="9.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAAAAAAAAAAACACAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>DAL\Model\Salary.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Teacher" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="dancing_studio.DAL.Student">
+    <Position X="5.75" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAABAAAAAAAAAQAQAAAAIAAABAAAAAEAIAAA=</HashCode>
+      <FileName>DAL\Model\Student.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Parents" />
+      <Property Name="Groups" />
+      <Property Name="Payments" />
+      <Property Name="Presences" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="dancing_studio.DAL.Teacher">
+    <Position X="5.75" Y="3" Width="2" />
+    <AssociationLine Name="Lessons" Type="dancing_studio.DAL.Lesson" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="4.062" />
+        <Point X="3.938" Y="4.062" />
+        <Point X="3.938" Y="4.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAGAEAAAAAAAAAAAAAAQAQAAAAIAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>DAL\Model\Teacher.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Groups" />
+      <Property Name="Lessons" />
+      <Property Name="Salarys" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="14" />
+</ClassDiagram>

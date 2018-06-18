@@ -9,12 +9,7 @@
 
         [Display(Name = "Викладач")]
         public int TeacherId { set; get; }
-
-        [Display(Name="Відсоток")]
-        [Required]
-        [Range(0, 100)]
-        public double lobe { set; get; }
-
+        
         [Required]
         [Range(0, 10000)]
         [Display(Name = "Сума")]

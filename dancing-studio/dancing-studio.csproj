@@ -169,6 +169,10 @@
     <Compile Include="Migrations\201512132125316_Time Interval.Designer.cs">
       <DependentUpon>201512132125316_Time Interval.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806160501153_Removed percent field from salary.cs" />
+    <Compile Include="Migrations\201806160501153_Removed percent field from salary.Designer.cs">
+      <DependentUpon>201806160501153_Removed percent field from salary.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -256,6 +260,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="help\drex_file_list" />
     <Content Include="help\справка.gui" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -319,7 +324,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -349,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512132125316_Time Interval.resx">
       <DependentUpon>201512132125316_Time Interval.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806160501153_Removed percent field from salary.resx">
+      <DependentUpon>201806160501153_Removed percent field from salary.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
