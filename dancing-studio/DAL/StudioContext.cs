@@ -1,17 +1,14 @@
 ﻿namespace dancing_studio.DAL
 {
-    using System.ComponentModel;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
-    using System.Linq;
 
     public class StudioContext : DbContext
     {
         public StudioContext()
             : base("name=StudioContext")
         {
-        }
-        
+        }        
 
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }
@@ -32,18 +29,18 @@
                     {
                         m.MapLeftKey("GroupId");
                         m.MapRightKey("StudentId");
-                        m.ToTable("GrouoStudents");
+                        m.ToTable("GroupStudents");
                     });
             
             modelBuilder.Entity<Teacher>()
                 .Property(p => p.Name)
-                .IsRequired().HasMaxLength(60);
+                .IsRequired()
+                .HasMaxLength(60);
 
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-
         }
 
-        public System.Data.Entity.DbSet<dancing_studio.DAL.Plan> Plans { get; set; }
+        public DbSet<Plan> Plans { get; set; }
 
     }
 }

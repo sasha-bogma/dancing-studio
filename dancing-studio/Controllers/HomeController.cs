@@ -12,40 +12,40 @@ namespace dancing_studio.Controllers
     {
         private readonly StudioContext _dbContext = new StudioContext();
 
-        private static bool IsLikeToday(DateTime? d)
-        {
-            if (d == null) 
-                return false;
-            
-            var today = new DateTime(((DateTime)d).Year, DateTime.Today.Month, DateTime.Today.Day);
-            return d == today;
-        }
-
-        private static bool IsBiggerThenToday(DateTime? d)
-        {
-            if (d == null) 
-                return false;
-            
-            var today = new DateTime( ((DateTime)d).Year, DateTime.Today.Month, DateTime.Today.Day);
-            return d > today;
-        }
-
+        [HttpGet]
         public ActionResult Index()
         {
-            var a = _dbContext.Students.Where(x => x.Birthday.Value.Month == DateTime.Today.Month && x.Birthday.Value.Day == DateTime.Today.Day).OrderBy(x => x.Name).ToList();
-            ViewBag.TodayBirthdayStudents = a;
-
-            var b = new List<Student>();
-            var currentDate = DateTime.Today.AddDays(1);
-            while (currentDate != DateTime.Today.AddDays(7))
-            {
-                var students = _dbContext.Students.Where(x => x.Birthday.Value.Month == currentDate.Month && x.Birthday.Value.Day == currentDate.Day).OrderBy(x => x.Name).ToList();
-                b.AddRange(students);
-                currentDate = currentDate.AddDays(1);
-            }
-            ViewBag.NearestBirthDays = b;
+            ViewBag.TodayBirthdayStudents = _dbContext
+                .Students
+                .Where(x => x.Birthday.Value.Month == DateTime.Today.Month 
+                            && x.Birthday.Value.Day == DateTime.Today.Day)
+                .OrderBy(x => x.Name)
+                .ToList();
+            
+            var fromDate = DateTime.Today.AddDays(1);
+            var toDate = fromDate.AddDays(7);
+            
+            ViewBag.NearestBirthDays = _dbContext
+                .Students
+                .Where(x => IsDayBetween(fromDate.Month,
+                                        fromDate.Day,
+                                        toDate.Month,
+                                        toDate.Day,
+                                        x.Birthday.Value))
+                .OrderBy(x => x.Birthday)
+                .ToList();
 
             return View();
+        }
+
+        private bool IsDayBetween(int fromMonth, 
+                                int fromDay, 
+                                int toMonth, 
+                                int toDay, 
+                                DateTime toCheck)
+        {
+            return toCheck.Month >= fromMonth && toCheck.Day >= fromDay 
+                && toCheck.Month <= toMonth && toCheck.Day <= toDay;
         }
 
         public ActionResult About()

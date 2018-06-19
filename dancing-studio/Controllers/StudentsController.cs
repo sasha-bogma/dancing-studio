@@ -21,13 +21,23 @@ namespace dancing_studio.Controllers
         }
 
         // GET: Students/Details/5
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             
-            var student = _dbContext.Students.Include(x => x.Groups).SingleOrDefault(x => x.Id == id);
-            ViewBag.Groups = _dbContext.Groups.OrderBy(x => x.Name).Include(x => x.Teacher).ToList();
+            var student = _dbContext
+                .Students
+                .Include(x => x.Groups)
+                .SingleOrDefault(x => x.Id == id);
+
+            ViewBag.Groups = _dbContext
+                .Groups
+                .OrderBy(x => x.Name)
+                .Include(x => x.Teacher)
+                .ToList();
+
             if (student == null)
                 return HttpNotFound();
             
@@ -42,8 +52,6 @@ namespace dancing_studio.Controllers
         }
 
         // POST: Students/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Student student, int[] selectedGroups)
@@ -62,13 +70,17 @@ namespace dancing_studio.Controllers
 
             newStudent.Groups.Clear();
             if (selectedGroups != null)
-                foreach (var g in _dbContext.Groups.Where(gr => selectedGroups.Contains(gr.Id)))
+            {
+                var groupsToAdd = _dbContext
+                    .Groups
+                    .Where(gr => selectedGroups.Contains(gr.Id));
+                foreach (var g in groupsToAdd)
                     newStudent.Groups.Add(g);
+            }                
 
             _dbContext.Entry(newStudent).State = EntityState.Modified;
             _dbContext.SaveChanges();
             return RedirectToAction("Index");
-
         }
 
         // GET: Students/Edit/5
